@@ -5,9 +5,11 @@ import { useForm } from 'react-hook-form';
 import {yupResolver} from '@hookform/resolvers/yup'
 import { ErrorMsg } from "../ErrorMsg/ErrorMsg";
 import { useNavigate } from "react-router-dom";
+import { useDataLayerValue } from "../../config/dataLayer";
 import axios from  'axios';
 
 export const LoginForm = () => {
+ const [{user} , dispatch] = useDataLayerValue();
  const navigate = useNavigate();
  const [UserData , setUserData] = useState(null);
  const {register , handleSubmit , formState } = useForm({
@@ -17,6 +19,10 @@ export const LoginForm = () => {
  try {
   const LoginUserData = await axios.post('http://localhost:5000/api/v1/login',data);
   if(LoginUserData.status === 201){
+    dispatch({
+      type : 'SET_USER',
+      user : LoginUserData.data.userInfo
+    })
     if(LoginUserData.data.token){
       localStorage.setItem('token',LoginUserData.data.token);
       setUserData(LoginUserData);

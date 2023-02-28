@@ -15,6 +15,9 @@ function App() {
           <Route exact path='/login' element={<LoginForm />} />
           <Route exact path='/:username' element={<Home />}/>
           <Route exact path='/profile/:username' element={<Profile />}/>
+          <Route exact path='/:username' element={<Home />} />
+          <Route exact path='/Explore' element={<Home />} />
+          <Route exact path='/Bookmarks' element={<Home />} />
           <Route exact path='*' element={()=>{
             return <h1>404</h1>
           }} />
