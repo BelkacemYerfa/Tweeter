@@ -16,11 +16,11 @@ export const LoginForm = () => {
  const onSubmitHandle = async (data)=>{
  try {
   const LoginUserData = await axios.post('http://localhost:5000/api/v1/login',data);
-  if(UserData.status === 201){
-    if(UserData.data.token){
-      localStorage.setItem('token',UserData.data.token);
+  if(LoginUserData.status === 201){
+    if(LoginUserData.data.token){
+      localStorage.setItem('token',LoginUserData.data.token);
       setUserData(LoginUserData);
-      navigate(`/${UserData.data.userInfo.username}`)
+      navigate(`/${LoginUserData.data.userInfo.username}`)
     }
   }
   else {

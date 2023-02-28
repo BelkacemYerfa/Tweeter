@@ -1,6 +1,5 @@
 const JWT = require('jsonwebtoken');
 const UserLogin = require('../models/UserSchema');
-const bcrypt = require('bcrypt');
 
 const login = async (req , res)=>{
  try {
@@ -76,6 +75,18 @@ const register = async (req , res)=>{
  }
 }
 
+const logout = async (req , res)=>{
+ try{
+  res.status(200).json({
+   msg : 'user logged out successfully',
+  })
+ } catch (error) {
+  return res.status(500).json({
+   msg : error.message
+  })
+ }
+}
+
 module.exports = {
- register , login 
+ register , login , logout
 }
