@@ -1,5 +1,6 @@
 const JWT = require('jsonwebtoken');
 const UserLogin = require('../models/UserSchema');
+const bcrypt = require('bcrypt');
 
 const login = async (req , res)=>{
  try {
@@ -12,16 +13,26 @@ const login = async (req , res)=>{
   const token = JWT.sign({email} , process.env.JWT_SECRET , {expiresIn : '10d'})
   if(!token){
    return res.status(400).json({
+    msg : 'Invalid credentials , please try again',
+   })
+  } 
+  const User = await UserLogin.findOne({
+   email:email , 
+  });
+  if(!User){
+   return res.status(400).json({
+    msg : 'user not found , check your credentials'
+   })
+  }
+  if(User.password !== password){
+   return res.status(401).json({
     msg : 'Invalid credentials , please try again'
    })
   }
-  const User = await UserLogin.find({
-   email:email , 
-   password:password
-  })
   res.status(201).json({
    msg : 'User loged successfully',
-   userInfo: User
+   userInfo: User ,
+   token : token
   })
  } catch (error) {
   return res.status(500).json({
@@ -32,14 +43,14 @@ const login = async (req , res)=>{
 
 const register = async (req , res)=>{
  try {
-  const {email , password , confirmPassword} = req.body;
-  if(!email || !password || !confirmPassword){
+  const {email , password , confirmPassword  , username} = req.body;
+  if(!email || !password || !confirmPassword || !username){
    return res.status(400).json({
     msg : 'Please provide email and password'
    })
   }
   if(confirmPassword !== password){
-   return res.status(403).json({
+   return res.status(401).json({
     msg : 'Passwords do not match , please try again'
    })
   }
@@ -50,9 +61,10 @@ const register = async (req , res)=>{
    })
   }
   const User = await UserLogin.create({
+   username:username ,
    email:email , 
    password:password
-  })
+  });
   res.status(201).json({
    msg : 'User created successfully',
    userInfo: User

@@ -3,23 +3,20 @@ import { RegistrationSchema } from "../../config/authSchema";
 import { useForm } from 'react-hook-form';
 import {yupResolver} from '@hookform/resolvers/yup'
 import { ErrorMsg } from "../ErrorMsg/ErrorMsg";
+import { useNavigate } from "react-router-dom";
 import axios from "axios";
 
 export const RegisterForm = ()=>{
- 
-  /*
-   Tasks : 
-    1-create the logIn form
-    2-make the access to the form by the login or to register (Dynamic routing)
-    3-the error message should be a component
-  */
-
+  const navigate = useNavigate();
  const {register , handleSubmit , formState } = useForm({
   resolver : yupResolver(RegistrationSchema)
  })
  const onSubmitHandle = async (data)=>{
   const UserData = await axios.post('http://localhost:5000/api/v1/register',data)
-  console.log(UserData) 
+  if(UserData.data.token){
+    navigate(`/${UserData.data.userInfo.username}`);
+
+  }
  }
 
  return (
@@ -36,6 +33,17 @@ export const RegisterForm = ()=>{
     </div>
     <br />
     <form action="" className="Form" >
+      <div className="InputFormHolder" >
+        <span class="material-symbols-rounded">
+          account_circle
+        </span>
+        <input type="text" name="username" id="username" placeholder="Username" {...register('username')} />
+      </div>
+      {
+        formState.errors.username?.message && (
+          <ErrorMsg error={formState.errors.username?.message} />
+        )
+      }
       <div className="InputFormHolder" >
        <span className="material-symbols-rounded">
         mail

@@ -1,18 +1,35 @@
 import { Link } from "react-router-dom";
+import { useState } from "react";
 import { LoginSchema } from "../../config/authSchema";
 import { useForm } from 'react-hook-form';
 import {yupResolver} from '@hookform/resolvers/yup'
 import { ErrorMsg } from "../ErrorMsg/ErrorMsg";
+import { useNavigate } from "react-router-dom";
 import axios from  'axios';
 
 export const LoginForm = () => {
-
+ const navigate = useNavigate();
+ const [UserData , setUserData] = useState(null);
  const {register , handleSubmit , formState } = useForm({
   resolver : yupResolver(LoginSchema)
  })
  const onSubmitHandle = async (data)=>{
-  const UserData = await axios.post('http://localhost:5000/api/v1/login',data)
-  console.log(UserData)
+ try {
+  const LoginUserData = await axios.post('http://localhost:5000/api/v1/login',data);
+  if(UserData.status === 201){
+    if(UserData.data.token){
+      localStorage.setItem('token',UserData.data.token);
+      setUserData(LoginUserData);
+      navigate(`/${UserData.data.userInfo.username}`)
+    }
+  }
+  else {
+    setUserData(LoginUserData);
+  }
+ } catch (error) {
+  localStorage.removeItem('token');
+  console.log(error)
+ }
  }
 
  return (
@@ -46,6 +63,11 @@ export const LoginForm = () => {
        formState.errors.password?.message && (
         <ErrorMsg error={ formState.errors.password?.message} />
        )
+      }
+      {
+        UserData?.msg && (
+          <ErrorMsg error={UserData.msg} />
+        )
       }
       <button type="submit" className="SubmitBtn" >
        start coding now

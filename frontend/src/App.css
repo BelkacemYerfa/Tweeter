@@ -11,7 +11,7 @@
     @apply w-[100vw] h-[100vh] overflow-x-hidden flex flex-col items-center justify-center;
   }
   .FormDetails{
-    @apply w-full sm:w-[75%] md:w-[40%] h-fit px-[18.52px] py-[14px] sm:px-[58.57px] sm:py-[43.07px] sm:border border-solid
+    @apply w-full sm:w-[75%] md:w-[40%] h-fit px-[18.52px] py-[14px] sm:px-[30px] sm:py-[20px] sm:border border-solid
     border-borderColor rounded-3xl !important
   }
   .TitleRegistraion{
