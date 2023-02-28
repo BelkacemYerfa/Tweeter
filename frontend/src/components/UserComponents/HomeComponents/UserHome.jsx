@@ -40,7 +40,7 @@ export const UserHome = ()=>{
              </p>
             </div>
            </div>
-           <button type="Submit" >
+           <button type="Submit" className="TweetBtn" >
              Tweet
            </button>
          </div>
