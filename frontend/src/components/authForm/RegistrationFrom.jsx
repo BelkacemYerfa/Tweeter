@@ -24,7 +24,7 @@ export const RegisterForm = ()=>{
   if(UserData.data.token){
     localStorage.setItem('token',UserData.data.token);
     console.log(user)
-    navigate(`/login`);
+    navigate(`/${user?.username}`);
   }
  }
 

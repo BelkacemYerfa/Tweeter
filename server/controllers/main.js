@@ -66,7 +66,8 @@ const register = async (req , res)=>{
   });
   res.status(201).json({
    msg : 'User created successfully',
-   userInfo: User
+   userInfo: User , 
+   token : token
   })
  } catch (error) {
   return res.status(500).json({
