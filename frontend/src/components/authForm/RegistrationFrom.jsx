@@ -5,17 +5,26 @@ import {yupResolver} from '@hookform/resolvers/yup'
 import { ErrorMsg } from "../ErrorMsg/ErrorMsg";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
+import { useDataLayerValue } from "../../config/dataLayer";
 
 export const RegisterForm = ()=>{
-  const navigate = useNavigate();
+ const [{user} , dispatch] = useDataLayerValue();
+ const navigate = useNavigate();
  const {register , handleSubmit , formState } = useForm({
   resolver : yupResolver(RegistrationSchema)
  })
  const onSubmitHandle = async (data)=>{
   const UserData = await axios.post('http://localhost:5000/api/v1/register',data)
+  if(UserData.status === 201){
+    dispatch({
+      type : 'SET_USER',
+      user : UserData.data.userInfo
+    })
+  }
   if(UserData.data.token){
-    navigate(`/${UserData.data.userInfo.username}`);
-
+    localStorage.setItem('token',UserData.data.token);
+    console.log(user)
+    navigate(`/login`);
   }
  }
 

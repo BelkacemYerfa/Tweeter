@@ -141,17 +141,37 @@
     @apply w-full flex flex-col gap-y-2 !important
   }
   .UserTweetInput{
-    @apply h-24 !important
+    @apply h-24 text-mainTitleColor !important
   }
   .TweetSettings{
     @apply flex items-center w-full justify-between !important
   }
   .AdditionalDetails , .TweetShare{
-    @apply flex items-center gap-x-3 !important
+    @apply flex items-center gap-x-3 text-[12px] !important
+  }
+  .TweetShare , .AddStyle{
+    @apply text-submitBtnBg !important
   }
   .TweetBtn{
     @apply py-2 px-6 bg-submitBtnBg text-white text-[12px]
     font-medium rounded !important
+  }
+
+  /* User post visibility */
+  .TweetVisibilityHolder{
+    @apply relative w-[30vw] !important
+  }
+  .TweetVisibilityDropDown{
+    @apply absolute top-12 px-3 py-[9px] shadow-UserDropDown bg-white border-none 
+    rounded-lg flex flex-col gap-y-3 !important
+  }
+  .VisibilityOptions{
+    @apply flex flex-col text-userDropDownNameHolderColor text-[12px] 
+    font-medium !important
+  }
+  .Option{
+    @apply flex items-center gap-x-[9.5px] py-[11px] px-[13px] rounded-lg
+    duration-300 ease-in-out hover:bg-DropDownBorderColor cursor-pointer !important
   }
 
   /*User Recomendation*/

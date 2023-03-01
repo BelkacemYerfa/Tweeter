@@ -1,8 +1,9 @@
 import { useDataLayerValue } from "../../../config/dataLayer";
-
+import { useState } from "react";
 
 export const UserHome = ()=>{
  const [{user}] = useDataLayerValue();
+ const [TweetVisibilityDropDown , setTweetVisibilityDropDown] = useState(false);
  return (
   <section className="UserHomePage" >
    <section className="UserHomePageDetails" >
@@ -28,16 +29,40 @@ export const UserHome = ()=>{
          </textarea>
          <div className="TweetSettings" >
            <div className="AdditionalDetails" >
-            <span className="material-symbols-rounded">
+            <span className="material-symbols-rounded AddStyle">
              image
             </span>
-            <div className="TweetShare" >
-             <span className="material-symbols-rounded">
-              public
-             </span>
-             <p className="TweetShare" >
-              Everyone can reply
-             </p>
+            <div className="TweetVisibilityHolder" >
+             <div className="TweetShare" onClick={()=>{
+              setTweetVisibilityDropDown(!TweetVisibilityDropDown);
+             }} >
+              <span className="material-symbols-rounded">
+               public
+              </span>
+              <p className="TweetShare" >
+               Everyone can reply
+              </p>
+             </div>
+             {
+              TweetVisibilityDropDown && (
+                <div className="TweetVisibilityDropDown" >
+                  <div className="DetailsTweetHolder" >
+                   <h3 className="TweetTilte" >Who can reply</h3>
+                   <p className="DescriptionVisiblity" >Choose who can reply to this Tweet.</p>
+                  </div>
+                  <ul className="VisibilityOptions">
+                   <li className="Option" >
+                    <span className="material-symbols-rounded">public</span>
+                    <p>Everyone</p>
+                   </li>
+                   <li className="Option" >
+                    <span className="material-symbols-rounded">group</span>
+                    <p>people you follow</p>
+                   </li>
+                  </ul>
+                </div>
+              )
+             }
             </div>
            </div>
            <button type="Submit" className="TweetBtn" >
