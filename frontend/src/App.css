@@ -2,180 +2,192 @@
 @tailwind components;
 @tailwind utilities;
 
-
 @layer {
-  .App{
-    @apply w-[100vw] space-x-[-0.035em] font-NotoFont ;
+  .App {
+    @apply w-[100vw] space-x-[-0.035em] font-NotoFont;
   }
-  .FormHolder{
+  .FormHolder {
     @apply w-[100vw] h-[100vh] overflow-x-hidden flex flex-col items-center justify-center;
   }
-  .FormDetails{
+  .FormDetails {
     @apply w-full sm:w-[75%] md:w-[40%] h-fit px-[18.52px] py-[14px] sm:px-[30px] sm:py-[20px] sm:border border-solid
-    border-borderColor rounded-3xl !important
+    border-borderColor rounded-3xl !important;
   }
-  .TitleRegistraion{
-    @apply font-semibold text-[18px] text-mainTitleColor !important
+  .TitleRegistraion {
+    @apply font-semibold text-[18px] text-mainTitleColor !important;
   }
-  .Description{
-    @apply font-normal text-base text-mainTitleColor !important
+  .Description {
+    @apply font-normal text-base text-mainTitleColor !important;
   }
-  .Form{
+  .Form {
     @apply w-full flex flex-col gap-y-[14.5px] text-inputColor
-     !important
+     !important;
   }
-  .InputFormHolder{
+  .InputFormHolder {
     @apply flex items-center gap-x-[13px] border border-solid border-borderColor
-    rounded-lg px-4 py-[13px] !important 
+    rounded-lg px-4 py-[13px] !important;
   }
-  input , textarea{
-    @apply w-full outline-none border-none resize-none !important
+  input,
+  textarea {
+    @apply w-full outline-none border-none resize-none !important;
   }
-  .SubmitBtn{
+  .SubmitBtn {
     @apply w-full bg-submitBtnBg text-white text-base font-semibold
     py-[7px] rounded-lg duration-300 ease-in-out
-    hover:bg-hoverSubmitBtnsBg focus:bg-hoverSubmitBtnsBg !important
+    hover:bg-hoverSubmitBtnsBg focus:bg-hoverSubmitBtnsBg !important;
   }
-  .HolderAccount{
-    @apply flex items-center justify-center !important
+  .HolderAccount {
+    @apply flex items-center justify-center !important;
   }
-  .HolderUserAccount{
-    @apply text-[14px] text-inputColor font-normal !important
+  .HolderUserAccount {
+    @apply text-[14px] text-inputColor font-normal !important;
   }
-  .Link{
-    @apply hover:underline text-redirectingLinkBg !important
+  .Link {
+    @apply hover:underline text-redirectingLinkBg !important;
   }
-  .MessageError{
-    @apply text-sm text-red-600 font-semibold capitalize !important
+  .MessageError {
+    @apply text-sm text-red-600 font-semibold capitalize !important;
   }
 
   /*Navigation Bar*/
-  .NavigationBar{
+  .NavigationBar {
     @apply flex items-center justify-between w-full bg-white 
-    px-14 py-5 border border-solid border-navBarBorderBg !important
+    px-14 py-5 border border-solid border-navBarBorderBg !important;
   }
-  .UserLinks{
-    @apply relative flex items-center gap-x-20  h-full
+  .UserLinks {
+    @apply relative flex items-center gap-x-20  h-full;
   }
-  .LinkHolder{
-    @apply relative flex items-center justify-center
+  .LinkHolder {
+    @apply relative flex items-center justify-center;
   }
-  .userLink{
+  .userLink {
     @apply duration-300 ease-in-out focus:text-submitBtnBg no-underline
     text-inputColor font-medium text-sm focus:font-semibold 
     hover:text-submitBtnBg w-full
-    !important
+    !important;
   }
-  .userLinkHover{
+  .userLinkHover {
     @apply absolute bottom-0 duration-300 ease-in-out w-0 h-[2px] bg-submitBtnBg
     group-focus-within:w-full border border-solid border-submitBtnBg
-    rounded-t-xl
+    rounded-t-xl;
   }
-  .AccountDropDownHolder{
+  .AccountDropDownHolder {
     @apply relative flex items-center gap-x-5 text-userDropDownNameHolderColor font-bold 
-    text-[12px] cursor-pointer
+    text-[12px] cursor-pointer;
   }
-  .UserInfoHolder{
-    @apply flex items-center gap-x-3
+  .UserInfoHolder {
+    @apply flex items-center gap-x-3;
   }
-  .userProfilePic , .UserFirstLetters{
-    @apply rounded-lg h-8 w-8 !important
+  .userProfilePic,
+  .UserFirstLetters {
+    @apply rounded-lg h-8 w-8 !important;
   }
-  .UserFirstLetters{
+  .UserFirstLetters {
     @apply flex items-center justify-center uppercase bg-userHolder
-    text-white text-[12px] font-medium !important
+    text-white text-[12px] font-medium !important;
   }
-  .DropDownIcon{
-    @apply flex items-center justify-center h-8 w-8
+  .DropDownIcon {
+    @apply flex items-center justify-center h-8 w-8;
   }
 
   /* user dorpDonw */
-  .UserDropdown{
+  .UserDropdown {
     @apply px-[.75rem] py-[.75rem] bg-white border border-solid border-DropDownBorderColor
     absolute top-20 right-4 shadow-UserDropDown rounded-xl w-[12rem] font-medium text-[.75rem] 
-    flex flex-col gap-y-2 !important
+    flex flex-col gap-y-2 !important;
   }
-  .OptionList{
-    @apply flex flex-col items-start p-0 !important
+  .OptionList {
+    @apply flex flex-col items-start p-0 !important;
   }
-  .option{
+  .option {
     @apply cursor-pointer flex items-center gap-x-[0.75rem] py-[0.75rem] text-optionColor 
     px-[13px] rounded-lg duration-300 ease-in-out
-    hover:bg-navBarBorderBg w-full !important
+    hover:bg-navBarBorderBg w-full !important;
   }
-  .line{
+  .line {
     @apply w-full border border-solid border-DropDownBorderColor rounded-full
-    !important
+    !important;
   }
-  .LogOutBtn{
+  .LogOutBtn {
     @apply w-full flex items-center gap-x-[0.75rem] py-[0.75rem] 
     text-logOutWarning px-[13px] rounded-lg duration-300 ease-in-out
-    hover:bg-logOutWarning hover:text-white !important
+    hover:bg-logOutWarning hover:text-white !important;
   }
 
   /*UserPage Section*/
-  .UserHomePage{
-    @apply w-full flex justify-center bg-DropDownBorderColor
+  .UserHomePage {
+    @apply w-full flex justify-center bg-DropDownBorderColor;
   }
-  .UserHomePageDetails{
-    @apply w-[75%] flex gap-x-[25px] py-[1.5rem]
+  .UserHomePageDetails {
+    @apply w-[75%] flex gap-x-[25px] py-[1.5rem];
   }
 
   /*User Post Section*/
-  .UserPostes{
-    @apply basis-[70%] relative ;
+  .UserPostes {
+    @apply basis-[70%] relative;
   }
 
   /* User Tweet */
-  .UserPost{
+  .UserPost {
     @apply bg-white rounded-xl shadow-UserDropDown px-[1.25rem]
-    py-[.68rem] flex flex-col gap-y-2 !important
+    py-[.68rem] flex flex-col gap-y-2 !important;
   }
-  .TweetTilte{
-    @apply text-[12px] font-semibold text-optionColor !important
+  .TweetTilte {
+    @apply text-[12px] font-semibold text-optionColor !important;
   }
-  .UserInfoDetails{
-    @apply flex gap-x-3 w-full !important
+  .UserInfoDetails {
+    @apply flex gap-x-3 w-full !important;
   }
-  .TweetSection{
-    @apply w-full flex flex-col gap-y-2 !important
+  .TweetSection {
+    @apply w-full flex flex-col gap-y-2 !important;
   }
-  .UserTweetInput{
-    @apply h-24 text-mainTitleColor !important
+  .PostInfoHolder {
+    @apply w-full flex items-center gap-x-3 !important;
   }
-  .TweetSettings{
-    @apply flex items-center w-full justify-between !important
+  .TweetSettings {
+    @apply flex items-center w-full justify-between !important;
   }
-  .AdditionalDetails , .TweetShare{
-    @apply flex items-center gap-x-3 text-[12px] !important
+  .UploadedImageInput {
+    @apply hidden;
   }
-  .TweetShare , .AddStyle{
-    @apply text-submitBtnBg !important
+  .AdditionalDetails,
+  .TweetShare {
+    @apply flex items-center gap-x-3 text-[12px] !important;
   }
-  .TweetBtn{
+  .UserTweetInput {
+    @apply h-24 text-mainTitleColor !important;
+  }
+  .ImageUploaed {
+    @apply h-24 w-auto rounded-lg !important;
+  }
+  .TweetShare,
+  .AddStyle {
+    @apply text-submitBtnBg cursor-pointer !important;
+  }
+  .TweetBtn {
     @apply py-2 px-6 bg-submitBtnBg text-white text-[12px]
-    font-medium rounded !important
+    font-medium rounded !important;
   }
 
   /* User post visibility */
-  .TweetVisibilityHolder{
-    @apply relative w-[30vw] !important
+  .TweetVisibilityHolder {
+    @apply relative w-[30vw] !important;
   }
-  .TweetVisibilityDropDown{
+  .TweetVisibilityDropDown {
     @apply absolute top-12 px-3 py-[9px] shadow-UserDropDown bg-white border-none 
-    rounded-lg flex flex-col gap-y-3 !important
+    rounded-lg flex flex-col gap-y-3 !important;
   }
-  .VisibilityOptions{
+  .VisibilityOptions {
     @apply flex flex-col text-userDropDownNameHolderColor text-[12px] 
-    font-medium !important
+    font-medium !important;
   }
-  .Option{
+  .Option {
     @apply flex items-center gap-x-[9.5px] py-[11px] px-[13px] rounded-lg
-    duration-300 ease-in-out hover:bg-DropDownBorderColor cursor-pointer !important
+    duration-300 ease-in-out hover:bg-DropDownBorderColor cursor-pointer !important;
   }
 
   /*User Recomendation*/
-  .UserRecomendations{
-    @apply basis-[30%]
+  .UserRecomendations {
+    @apply basis-[30%];
   }
 }
