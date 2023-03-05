@@ -1,6 +1,7 @@
 import { useDataLayerValue } from "../../../config/dataLayer";
 import { useState, useRef, useEffect } from "react";
 import { TweetVisibilityOption } from "../../../static/UserTweetVisibility";
+import axios from "axios";
 
 export const UserHome = () => {
   const [{ user }] = useDataLayerValue();
@@ -11,18 +12,26 @@ export const UserHome = () => {
     text: "Everyone can reply",
   });
   const [UploadedImage, setUploadedImage] = useState(null);
+  const [TweetDetails, setTweetDetails] = useState(null);
   const handleUploadedImage = (e) => {
     const file = e.target.files[0];
     setUploadedImage(URL.createObjectURL(file));
   };
-  const HandlePostTweet = (e) => {
+  const HandlePostTweet = async (e) => {
     e.preventDefault();
     const data = {
       TweetVisibility: TweetVisibility.text,
       TweetImage: UploadedImage,
+      TweetDetails: TweetDetails,
+      token: localStorage.getItem("token"),
     };
     console.log(data);
     //data to be sent to backend
+    const CreateTweet = await axios.post(
+      "http://localhost:5000/api/v1/tweet",
+      data
+    );
+    console.log(CreateTweet);
   };
   useEffect(() => {
     window.addEventListener("click", (e) => {
@@ -59,6 +68,12 @@ export const UserHome = () => {
                     name="Tweet"
                     id="Tweet"
                     placeholder="What’s happening?"
+                    onChange={(e) => {
+                      e.preventDefault();
+                      if (e.target.value.length > 0) {
+                        setTweetDetails(e.target.value);
+                      }
+                    }}
                   ></textarea>
                   {UploadedImage && (
                     <img
@@ -70,7 +85,10 @@ export const UserHome = () => {
                 </div>
                 <div className="TweetSettings">
                   <div className="AdditionalDetails">
-                    <label htmlFor="UploadedImage" className="text-submitBtnBg">
+                    <label
+                      htmlFor="UploadedImage"
+                      className="flex items-center justify-center text-submitBtnBg"
+                    >
                       <input
                         type="file"
                         name="UploadedImage"
