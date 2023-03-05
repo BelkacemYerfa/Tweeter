@@ -1,5 +1,6 @@
 import { Link, useNavigate } from "react-router-dom";
 import axios from "axios";
+import { UserDropDownOptions } from "../../../static/UserDropDownOptions";
 
 export const UserDropDown = () => {
   const navigate = useNavigate();
@@ -18,18 +19,12 @@ export const UserDropDown = () => {
   return (
     <div className="UserDropdown">
       <ul className="OptionList">
-        <li className="option">
-          <span className="material-symbols-rounded">account_circle</span>
-          <Link>My Profile</Link>
-        </li>
-        <li className="option">
-          <span className="material-symbols-rounded">group</span>
-          <Link>Group Chat</Link>
-        </li>
-        <li className="option">
-          <span className="material-symbols-rounded">settings</span>
-          <Link>Settings</Link>
-        </li>
+        {UserDropDownOptions.map((option) => (
+          <li className="option" key={option.id}>
+            <span className="material-symbols-rounded">{option.icon}</span>
+            <Link>{option.text}</Link>
+          </li>
+        ))}
       </ul>
       <div className="line"></div>
       <button type="submit" className="LogOutBtn" onClick={logOut}>

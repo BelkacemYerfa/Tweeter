@@ -15,11 +15,19 @@ export const UserHome = () => {
     const file = e.target.files[0];
     setUploadedImage(URL.createObjectURL(file));
   };
+  const HandlePostTweet = (e) => {
+    e.preventDefault();
+    const data = {
+      TweetVisibility: TweetVisibility.text,
+      TweetImage: UploadedImage,
+    };
+    console.log(data);
+    //data to be sent to backend
+  };
   useEffect(() => {
     window.addEventListener("click", (e) => {
       if (!TweetDropDownRef.current.contains(e.target)) {
         setTweetVisibilityDropDown(false);
-        console.log(e.target);
       } else {
         setTweetVisibilityDropDown(true);
       }
@@ -44,7 +52,7 @@ export const UserHome = () => {
                   {user?.username.slice(0, 2)}
                 </div>
               )}
-              <div className="TweetSection">
+              <form className="TweetSection" onSubmit={HandlePostTweet}>
                 <div className="PostInfoHolder">
                   <textarea
                     className="UserTweetInput"
@@ -92,6 +100,7 @@ export const UserHome = () => {
                             {TweetVisibilityOption.map((option) => (
                               <li
                                 className="Option"
+                                key={option.id}
                                 onClick={() => {
                                   setTweetVisibility(option);
                                   setTweetVisibilityDropDown(false);
@@ -112,7 +121,7 @@ export const UserHome = () => {
                     Tweet
                   </button>
                 </div>
-              </div>
+              </form>
             </div>
           </section>
         </div>
