@@ -1,7 +1,7 @@
 const mongoose = require("mongoose");
 
 const TweetSchema = new mongoose.Schema({
-  TweetText: {
+  TweetDetails: {
     type: String,
     trim: true,
   },
@@ -12,6 +12,10 @@ const TweetSchema = new mongoose.Schema({
   TweetImage: {
     type: String,
     trim: true,
+  },
+  UserID: {
+    type: String,
+    required: [true, "Please provide a user id"],
   },
 });
 

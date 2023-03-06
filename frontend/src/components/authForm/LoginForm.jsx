@@ -1,5 +1,5 @@
 import { Link } from "react-router-dom";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { LoginSchema } from "../../static/authSchema";
 import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
@@ -18,7 +18,7 @@ export const LoginForm = () => {
   const onSubmitHandle = async (data) => {
     try {
       const LoginUserData = await axios.post(
-        "http://localhost:5000/api/v1/login",
+        "http://localhost:4000/api/v1/login",
         data
       );
       if (LoginUserData.status === 201) {
@@ -39,7 +39,26 @@ export const LoginForm = () => {
       console.log(error);
     }
   };
-
+  const getAllTweets = async () => {
+    const data = {
+      token: localStorage.getItem("token"),
+    };
+    //data to be sent to backend
+    const AllTweets = await axios.post(
+      "http://localhost:4000/api/v1/getAllTweets",
+      data
+    );
+    console.log(AllTweets);
+    if (AllTweets.status === 201) {
+      dispatch({
+        type: "SET_POSTED_TWEETS",
+        PostedTweets: AllTweets.data,
+      });
+    }
+  };
+  useEffect(() => {
+    getAllTweets();
+  });
   return (
     <section className="FormHolder" onSubmit={handleSubmit(onSubmitHandle)}>
       <div className="FormDetails">

@@ -3,31 +3,56 @@ const TweetSchema = require("../models/TweetSchema");
 
 const PostTweet = async (req, res) => {
   try {
-    const { TweetText, TweetVisibility, TweetImage, token } = req.body;
+    const { token, TweetDetails, TweetVisibility, TweetImage, UserID } =
+      req.body;
+    if (!token) {
+      return res.status(401).json({
+        msg: "Unauthorized to post tweet",
+      });
+    } else {
+      const match = JWT.verify(token, process.env.JWT_SECRET);
+      if (!match) {
+        return res.status(401).json({
+          msg: "Unauthorized to post tweet",
+        });
+      } else {
+        const tweet = await TweetSchema.create({
+          TweetDetails: TweetDetails,
+          TweetVisibility: TweetVisibility,
+          TweetImage: TweetImage,
+          UserID: UserID,
+        });
+        res.status(201).json({
+          msg: "Tweet posted successfully",
+          tweet: tweet,
+        });
+      }
+    }
+  } catch (error) {
+    return res.status(500).json({
+      msg: error.message,
+    });
+  }
+};
+
+const GetTweets = async (req, res) => {
+  try {
+    const { token } = req.body;
     if (!token) {
       return res.status(400).json({
         msg: "Unauthorized to post tweet",
       });
     } else {
-      const verified = JWT.verify(token, process.env.JWT_SECRET);
-      if (!verified) {
+      const match = JWT.verify(token, process.env.JWT_SECRET);
+      if (!match) {
         return res.status(400).json({
           msg: "Unauthorized to post tweet",
         });
       } else {
-        if (!tweet || !image) {
-          return res.status(400).json({
-            msg: "Please provide tweet and image",
-          });
-        }
-        const newTweet = await TweetSchema.create({
-          TweetText: TweetText,
-          TweetVisibility: TweetVisibility,
-          TweetImage: TweetImage,
-        });
-        res.status(201).json({
-          msg: "User created successfully",
-          userInfo: newTweet,
+        const tweets = await TweetSchema.find({});
+        res.status(200).json({
+          msg: "Tweets fetched successfully",
+          tweets: tweets,
         });
       }
     }
@@ -40,4 +65,5 @@ const PostTweet = async (req, res) => {
 
 module.exports = {
   PostTweet,
+  GetTweets,
 };

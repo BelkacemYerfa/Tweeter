@@ -6,16 +6,17 @@ import { ErrorMsg } from "../ErrorMsg/ErrorMsg";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
 import { useDataLayerValue } from "../../config/dataLayer";
+import { useEffect } from "react";
 
 export const RegisterForm = () => {
-  const [{ user }, dispatch] = useDataLayerValue();
+  const [{ user, PostedTweets }, dispatch] = useDataLayerValue();
   const navigate = useNavigate();
   const { register, handleSubmit, formState } = useForm({
     resolver: yupResolver(RegistrationSchema),
   });
   const onSubmitHandle = async (data) => {
     const UserData = await axios.post(
-      "http://localhost:5000/api/v1/register",
+      "http://localhost:4000/api/v1/register",
       data
     );
     if (UserData.status === 201) {
@@ -30,7 +31,26 @@ export const RegisterForm = () => {
       navigate(`/${user?.username}`);
     }
   };
-
+  const getAllTweets = async () => {
+    const data = {
+      token: localStorage.getItem("token"),
+    };
+    //data to be sent to backend
+    const AllTweets = await axios.post(
+      "http://localhost:4000/api/v1/getAllTweets",
+      data
+    );
+    console.log(AllTweets);
+    if (AllTweets.status === 201) {
+      dispatch({
+        type: "SET_POSTED_TWEETS",
+        PostedTweets: AllTweets.data,
+      });
+    }
+  };
+  useEffect(() => {
+    getAllTweets();
+  });
   return (
     <section className="FormHolder" onSubmit={handleSubmit(onSubmitHandle)}>
       <div className="FormDetails">

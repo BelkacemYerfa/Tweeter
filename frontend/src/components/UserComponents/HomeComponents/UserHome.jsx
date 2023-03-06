@@ -4,7 +4,7 @@ import { TweetVisibilityOption } from "../../../static/UserTweetVisibility";
 import axios from "axios";
 
 export const UserHome = () => {
-  const [{ user }] = useDataLayerValue();
+  const [{ user, PostedTweets }, dispatch] = useDataLayerValue();
   const TweetDropDownRef = useRef(null);
   const [TweetVisibilityDropDown, setTweetVisibilityDropDown] = useState(false);
   const [TweetVisibility, setTweetVisibility] = useState({
@@ -23,16 +23,37 @@ export const UserHome = () => {
       TweetVisibility: TweetVisibility.text,
       TweetImage: UploadedImage,
       TweetDetails: TweetDetails,
+      UserID: user?._id,
       token: localStorage.getItem("token"),
     };
     console.log(data);
     //data to be sent to backend
     const CreateTweet = await axios.post(
-      "http://localhost:5000/api/v1/tweet",
+      "http://localhost:4000/api/v1/PostTweet",
       data
     );
-    console.log(CreateTweet);
+    if (CreateTweet.status === 201) {
+      console.log(CreateTweet);
+    }
   };
+  const getAllTweets = async () => {
+    const data = {
+      token: localStorage.getItem("token"),
+    };
+    //data to be sent to backend
+    const AllTweets = await axios.post(
+      "http://localhost:4000/api/v1/getAllTweets",
+      data
+    );
+    console.log(AllTweets);
+    if (AllTweets.status === 201) {
+      dispatch({
+        type: "SET_POSTED_TWEETS",
+        PostedTweets: AllTweets.data,
+      });
+    }
+  };
+
   useEffect(() => {
     window.addEventListener("click", (e) => {
       if (!TweetDropDownRef.current.contains(e.target)) {
@@ -41,6 +62,7 @@ export const UserHome = () => {
         setTweetVisibilityDropDown(true);
       }
     });
+    getAllTweets();
   });
   return (
     <section className="UserHomePage">
@@ -141,6 +163,12 @@ export const UserHome = () => {
                 </div>
               </form>
             </div>
+          </section>
+          <br />
+          <section className="UserFiendsPost">
+            {PostedTweets?.map((tweet) => (
+              <p key={tweet}>hello</p>
+            ))}
           </section>
         </div>
         <div className="UserRecomendations"></div>
