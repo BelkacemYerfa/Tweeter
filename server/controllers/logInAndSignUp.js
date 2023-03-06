@@ -1,4 +1,5 @@
 const JWT = require("jsonwebtoken");
+const bcrypt = require("bcrypt");
 const UserLogin = require("../models/UserSchema");
 
 const login = async (req, res) => {
@@ -25,7 +26,8 @@ const login = async (req, res) => {
         msg: "user not found , check your credentials",
       });
     }
-    if (User.password !== password) {
+    const match = await bcrypt.compare(password, User.password);
+    if (!match) {
       return res.status(401).json({
         msg: "Invalid credentials , please try again",
       });
@@ -63,10 +65,12 @@ const register = async (req, res) => {
         msg: "Invalid credentials , please try again",
       });
     }
+    const salt = await bcrypt.genSalt();
+    const passwordHash = await bcrypt.hash(password, salt);
     const User = await UserLogin.create({
       username: username,
       email: email,
-      password: password,
+      password: passwordHash,
     });
     res.status(201).json({
       msg: "User created successfully",
