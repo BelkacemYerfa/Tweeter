@@ -6,7 +6,6 @@ import { ErrorMsg } from "../ErrorMsg/ErrorMsg";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
 import { useDataLayerValue } from "../../config/dataLayer";
-import { useQuery } from "@tanstack/react-query";
 
 export const RegisterForm = () => {
   const [{ user }, dispatch] = useDataLayerValue();
@@ -14,6 +13,21 @@ export const RegisterForm = () => {
   const { register, handleSubmit, formState } = useForm({
     resolver: yupResolver(RegistrationSchema),
   });
+  const getAllTweets = async () => {
+    const data = {
+      token: localStorage.getItem("token"),
+    };
+    const AllTweets = await axios.post(
+      "http://localhost:4000/api/v1/getAllTweets",
+      data
+    );
+    if (AllTweets?.status === 201) {
+      dispatch({
+        type: "SET_POSTED_TWEETS",
+        PostedTweets: AllTweets?.data?.tweets,
+      });
+    }
+  };
   const onSubmitHandle = async (data) => {
     const UserData = await axios.post(
       "http://localhost:4000/api/v1/register",
@@ -30,18 +44,8 @@ export const RegisterForm = () => {
       console.log(user);
       navigate(`/${user?.username}`);
     }
+    getAllTweets();
   };
-  const { data: AllTweets, isLoading } = useQuery(["AllTweets"], async () => {
-    return await axios.post("http://localhost:4000/api/v1/getAllTweets", {
-      token: localStorage.getItem("token"),
-    });
-  });
-  if (AllTweets?.status === 201) {
-    dispatch({
-      type: "SET_POSTED_TWEETS",
-      PostedTweets: AllTweets?.data?.tweets,
-    });
-  }
   return (
     <section className="FormHolder" onSubmit={handleSubmit(onSubmitHandle)}>
       <div className="FormDetails">

@@ -6,7 +6,7 @@ export const UserDropDown = () => {
   const navigate = useNavigate();
   const logOut = async () => {
     try {
-      const data = await axios.get("http://localhost:5000/api/v1/logout");
+      const data = await axios.get("http://localhost:4000/api/v1/logout");
       console.log(data);
       localStorage.removeItem("token");
       if (data.status === 200) {

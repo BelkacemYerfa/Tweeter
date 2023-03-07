@@ -20,6 +20,7 @@ module.exports = {
         DropDownBorderColor: " #E0E0E0",
         optionColor: "#4F4F4F",
         logOutWarning: "#EB5757",
+        CommentFormBg: "#FAFAFA",
       },
       fontFamily: {
         NotoFont: ["Noto Sans", "sans-serif"],

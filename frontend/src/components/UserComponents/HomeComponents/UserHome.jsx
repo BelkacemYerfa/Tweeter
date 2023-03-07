@@ -36,6 +36,22 @@ export const UserHome = () => {
     if (CreateTweet.status === 201) {
       console.log(CreateTweet);
     }
+    getAllTweets();
+  };
+  const getAllTweets = async () => {
+    const data = {
+      token: localStorage.getItem("token"),
+    };
+    const AllTweets = await axios.post(
+      "http://localhost:4000/api/v1/getAllTweets",
+      data
+    );
+    if (AllTweets?.status === 201) {
+      dispatch({
+        type: "SET_POSTED_TWEETS",
+        PostedTweets: AllTweets?.data?.tweets,
+      });
+    }
   };
 
   useEffect(() => {
@@ -151,7 +167,7 @@ export const UserHome = () => {
           <section className="UserFiendsPost">
             {PostedTweets?.map((tweet) => (
               <TweeterPostData
-                key={tweet?.UserInfo?._id}
+                key={tweet?._id}
                 TweetDetails={tweet?.TweetDetails}
                 TweetImage={tweet?.TweetImage}
                 TweetVisibility={tweet?.TweetVisibility}

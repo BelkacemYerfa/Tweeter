@@ -4,7 +4,7 @@
 
 @layer {
   .App {
-    @apply w-[100vw] space-x-[-0.035em] font-NotoFont;
+    @apply space-x-[-0.035em] font-NotoFont;
   }
   .FormHolder {
     @apply w-[100vw] h-[100vh] overflow-x-hidden flex flex-col items-center justify-center;
@@ -82,6 +82,9 @@
   .UserFirstLetters {
     @apply rounded-lg h-8 w-8 !important;
   }
+  .UserFirstLettersSize {
+    @apply h-10 w-10 !important;
+  }
   .UserFirstLetters {
     @apply flex items-center justify-center uppercase bg-userHolder
     text-white text-[12px] font-medium !important;
@@ -116,15 +119,16 @@
 
   /*UserPage Section*/
   .UserHomePage {
-    @apply w-full flex justify-center bg-DropDownBorderColor;
+    @apply w-full flex justify-center bg-DropDownBorderColor
+    !important;
   }
   .UserHomePageDetails {
-    @apply w-[75%] flex gap-x-[25px] py-[1.5rem];
+    @apply sm:w-[75%] flex gap-x-[25px] py-[1.5rem];
   }
 
   /*User Post Section*/
   .UserPostes {
-    @apply basis-[70%] relative;
+    @apply basis-[70%] relative !important;
   }
 
   /* User Tweet */
@@ -188,7 +192,7 @@
 
   /*Tweet Post */
   .UserFiendsPost {
-    @apply w-full flex items-center flex-col gap-y-6 !important;
+    @apply max-w-full flex items-center flex-col gap-y-6 !important;
   }
   .TweetHolder {
     @apply w-full h-fit p-5 bg-white
@@ -198,7 +202,7 @@
     @apply w-full flex flex-col gap-y-2 !important;
   }
   .InfoHolder {
-    @apply flex items-center flex-col gap-y-1 !important;
+    @apply flex  flex-col gap-y-1 !important;
   }
   .UserInfoName {
     @apply text-base font-medium;
@@ -210,7 +214,7 @@
     @apply text-base font-normal text-optionColor;
   }
   .TweetImage {
-    @apply h-[375px] w-full;
+    @apply h-[375px] w-full rounded-lg !important;
   }
   .TweetInfoDetails {
     @apply flex w-full justify-end !important;
@@ -225,9 +229,28 @@
     @apply flex items-center w-full justify-between !important;
   }
   .OptionDetails {
-    @apply w-full items-center hover:bg-navBarBorderBg rounded-lg text-sm 
+    @apply duration-300 ease-in-out cursor-pointer
+    w-full h-11 flex items-center justify-center
+    hover:bg-navBarBorderBg rounded-lg text-sm 
     font-medium !important;
   }
+  .OptionDetailsHolder {
+    @apply w-full flex items-center justify-center gap-x-2 !important;
+  }
+  .UserCommentHolder {
+    @apply w-full flex items-start gap-x-4;
+  }
+  .CommentForm {
+    @apply w-full flex items-center border border-solid border-navBarBorderBg
+    bg-CommentFormBg px-3 py-[10.5px] bg-transparent rounded-lg !important;
+  }
+  .CommentInput {
+    @apply w-full;
+  }
+  .UploadeCommentImage {
+    @apply h-10 w-auto rounded-lg !important;
+  }
+
   /*User Recomendation*/
   .UserRecomendations {
     @apply basis-[30%];

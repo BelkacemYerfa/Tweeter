@@ -19,7 +19,7 @@ const TweetSchema = new mongoose.Schema({
   },
   CreationDate: {
     type: Date,
-    default: Date.now,
+    default: Date.now(),
   },
   Commments: {
     type: Array,

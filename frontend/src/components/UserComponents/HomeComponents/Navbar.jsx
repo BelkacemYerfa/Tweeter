@@ -55,7 +55,7 @@ export const NavBar = () => {
               />
             ) : (
               <div className="UserFirstLetters">
-                {user?.username.slice(0, 2)}
+                {user?.username?.slice(0, 2)}
               </div>
             )}
             <h3 className="Username">{user?.username}</h3>
