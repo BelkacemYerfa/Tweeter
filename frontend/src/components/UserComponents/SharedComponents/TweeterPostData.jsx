@@ -60,13 +60,15 @@ export const TweeterPostData = ({
         <div className="UserDetails">
           <p className="DetailsInfo">{TweetDetails}</p>
           <br />
-          {TweetImage && (
-            <img
-              src={TweetImage}
-              className="TweetImage"
-              alt="UserPostedImage"
-            />
-          )}
+          <div className="ImagePostHodler">
+            {TweetImage && (
+              <img
+                src={TweetImage}
+                className="TweetImage"
+                alt="UserPostedImage"
+              />
+            )}
+          </div>
         </div>
         <div className="TweetInfoDetails">
           <div className="TweetInfoSettingsHolder">

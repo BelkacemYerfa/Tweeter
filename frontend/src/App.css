@@ -216,8 +216,11 @@
   .DetailsInfo {
     @apply text-base font-normal text-optionColor;
   }
+  .ImagePostHodler {
+    @apply h-[375px] w-full flex justify-center;
+  }
   .TweetImage {
-    @apply h-[375px] w-full rounded-lg !important;
+    @apply h-full w-auto rounded-lg !important;
   }
   .TweetInfoDetails {
     @apply flex w-full justify-end !important;
