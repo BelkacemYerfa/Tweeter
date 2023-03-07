@@ -1,6 +1,7 @@
 import { useDataLayerValue } from "../../../config/dataLayer";
 import { useState, useRef, useEffect } from "react";
 import { TweetVisibilityOption } from "../../../static/UserTweetVisibility";
+import { TweeterPostData } from "../SharedComponents/TweeterPostData";
 import axios from "axios";
 
 export const UserHome = () => {
@@ -36,23 +37,6 @@ export const UserHome = () => {
       console.log(CreateTweet);
     }
   };
-  const getAllTweets = async () => {
-    const data = {
-      token: localStorage.getItem("token"),
-    };
-    //data to be sent to backend
-    const AllTweets = await axios.post(
-      "http://localhost:4000/api/v1/getAllTweets",
-      data
-    );
-    console.log(AllTweets);
-    if (AllTweets.status === 201) {
-      dispatch({
-        type: "SET_POSTED_TWEETS",
-        PostedTweets: AllTweets.data,
-      });
-    }
-  };
 
   useEffect(() => {
     window.addEventListener("click", (e) => {
@@ -62,7 +46,6 @@ export const UserHome = () => {
         setTweetVisibilityDropDown(true);
       }
     });
-    getAllTweets();
   });
   return (
     <section className="UserHomePage">
@@ -167,7 +150,12 @@ export const UserHome = () => {
           <br />
           <section className="UserFiendsPost">
             {PostedTweets?.map((tweet) => (
-              <p key={tweet}>hello</p>
+              <TweeterPostData
+                key={tweet?._id}
+                TweetDetails={tweet?.TweetDetails}
+                TweetImage={tweet?.TweetImage}
+                TweetVisibility={tweet?.TweetVisibility}
+              />
             ))}
           </section>
         </div>

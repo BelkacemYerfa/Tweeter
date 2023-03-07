@@ -50,7 +50,7 @@ const GetTweets = async (req, res) => {
         });
       } else {
         const tweets = await TweetSchema.find({});
-        res.status(200).json({
+        res.status(201).json({
           msg: "Tweets fetched successfully",
           tweets: tweets,
         });

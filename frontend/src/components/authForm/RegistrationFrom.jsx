@@ -6,10 +6,10 @@ import { ErrorMsg } from "../ErrorMsg/ErrorMsg";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
 import { useDataLayerValue } from "../../config/dataLayer";
-import { useEffect } from "react";
+import { useQuery } from "@tanstack/react-query";
 
 export const RegisterForm = () => {
-  const [{ user, PostedTweets }, dispatch] = useDataLayerValue();
+  const [{ user }, dispatch] = useDataLayerValue();
   const navigate = useNavigate();
   const { register, handleSubmit, formState } = useForm({
     resolver: yupResolver(RegistrationSchema),
@@ -19,7 +19,7 @@ export const RegisterForm = () => {
       "http://localhost:4000/api/v1/register",
       data
     );
-    if (UserData.status === 201) {
+    if (UserData?.status === 201) {
       dispatch({
         type: "SET_USER",
         user: UserData.data.userInfo,
@@ -31,26 +31,17 @@ export const RegisterForm = () => {
       navigate(`/${user?.username}`);
     }
   };
-  const getAllTweets = async () => {
-    const data = {
+  const { data: AllTweets, isLoading } = useQuery(["AllTweets"], async () => {
+    return await axios.post("http://localhost:4000/api/v1/getAllTweets", {
       token: localStorage.getItem("token"),
-    };
-    //data to be sent to backend
-    const AllTweets = await axios.post(
-      "http://localhost:4000/api/v1/getAllTweets",
-      data
-    );
-    console.log(AllTweets);
-    if (AllTweets.status === 201) {
-      dispatch({
-        type: "SET_POSTED_TWEETS",
-        PostedTweets: AllTweets.data,
-      });
-    }
-  };
-  useEffect(() => {
-    getAllTweets();
+    });
   });
+  if (AllTweets?.status === 201) {
+    dispatch({
+      type: "SET_POSTED_TWEETS",
+      PostedTweets: AllTweets?.data?.tweets,
+    });
+  }
   return (
     <section className="FormHolder" onSubmit={handleSubmit(onSubmitHandle)}>
       <div className="FormDetails">
@@ -125,7 +116,7 @@ export const RegisterForm = () => {
         <br />
         <div className="HolderAccount">
           <p className="HolderUserAccount">
-            Already a member?{" "}
+            Already a member?
             <Link to="/login" className="Link">
               Login
             </Link>
