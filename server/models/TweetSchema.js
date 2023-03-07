@@ -13,9 +13,25 @@ const TweetSchema = new mongoose.Schema({
     type: String,
     trim: true,
   },
-  UserID: {
-    type: String,
-    required: [true, "Please provide a user id"],
+  UserInfo: {
+    type: Object,
+    default: {},
+  },
+  CreationDate: {
+    type: Date,
+    default: Date.now,
+  },
+  Commments: {
+    type: Array,
+    default: [],
+  },
+  Liked: {
+    type: Number,
+    default: 0,
+  },
+  Saved: {
+    type: Number,
+    default: 0,
   },
 });
 

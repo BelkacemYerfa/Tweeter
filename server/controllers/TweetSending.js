@@ -3,8 +3,7 @@ const TweetSchema = require("../models/TweetSchema");
 
 const PostTweet = async (req, res) => {
   try {
-    const { token, TweetDetails, TweetVisibility, TweetImage, UserID } =
-      req.body;
+    const { token, TweetDetails, TweetVisibility, TweetImage, User } = req.body;
     if (!token) {
       return res.status(401).json({
         msg: "Unauthorized to post tweet",
@@ -20,7 +19,7 @@ const PostTweet = async (req, res) => {
           TweetDetails: TweetDetails,
           TweetVisibility: TweetVisibility,
           TweetImage: TweetImage,
-          UserID: UserID,
+          UserInfo: User,
         });
         res.status(201).json({
           msg: "Tweet posted successfully",

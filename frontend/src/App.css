@@ -186,6 +186,48 @@
     duration-300 ease-in-out hover:bg-DropDownBorderColor cursor-pointer !important;
   }
 
+  /*Tweet Post */
+  .UserFiendsPost {
+    @apply w-full flex items-center flex-col gap-y-6 !important;
+  }
+  .TweetHolder {
+    @apply w-full h-fit p-5 bg-white
+    shadow-UserDropDown rounded-lg !important;
+  }
+  .InfoTweetHolder {
+    @apply w-full flex flex-col gap-y-2 !important;
+  }
+  .InfoHolder {
+    @apply flex items-center flex-col gap-y-1 !important;
+  }
+  .UserInfoName {
+    @apply text-base font-medium;
+  }
+  .CreationDate {
+    @apply text-[12px] font-medium text-userHolder;
+  }
+  .DetailsInfo {
+    @apply text-base font-normal text-optionColor;
+  }
+  .TweetImage {
+    @apply h-[375px] w-full;
+  }
+  .TweetInfoDetails {
+    @apply flex w-full justify-end !important;
+  }
+  .TweetInfoSettingsHolder {
+    @apply flex items-center justify-between w-[30%] !important;
+  }
+  .DetailsOption {
+    @apply text-[12px] font-medium text-userHolder cursor-pointer !important;
+  }
+  .BtnSettingsInfo {
+    @apply flex items-center w-full justify-between !important;
+  }
+  .OptionDetails {
+    @apply w-full items-center hover:bg-navBarBorderBg rounded-lg text-sm 
+    font-medium !important;
+  }
   /*User Recomendation*/
   .UserRecomendations {
     @apply basis-[30%];

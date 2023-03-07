@@ -24,7 +24,7 @@ export const UserHome = () => {
       TweetVisibility: TweetVisibility.text,
       TweetImage: UploadedImage,
       TweetDetails: TweetDetails,
-      UserID: user?._id,
+      User: user,
       token: localStorage.getItem("token"),
     };
     console.log(data);
@@ -151,10 +151,15 @@ export const UserHome = () => {
           <section className="UserFiendsPost">
             {PostedTweets?.map((tweet) => (
               <TweeterPostData
-                key={tweet?._id}
+                key={tweet?.UserInfo?._id}
                 TweetDetails={tweet?.TweetDetails}
                 TweetImage={tweet?.TweetImage}
                 TweetVisibility={tweet?.TweetVisibility}
+                UserInfo={tweet?.UserInfo}
+                CreateDate={tweet?.CreationDate}
+                Comments={tweet?.Comments}
+                Liked={tweet?.Liked}
+                Saved={tweet?.Saved}
               />
             ))}
           </section>
