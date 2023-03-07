@@ -180,7 +180,25 @@ export const UserHome = () => {
             ))}
           </section>
         </div>
-        <div className="UserRecomendations"></div>
+        <div className="UserRecomendations">
+          <div className="Trends">
+            <div className="TrendsHolder">
+              <p className="TrendsText">Trends for you</p>
+              <div className="line"></div>
+              <br />
+              <ul className="ListOfTrends">
+                <li className="TrendOption">
+                  <h5 className="TrendLink">#ReactJs</h5>
+                  <p className="TrendNumber">213k Tweets</p>
+                </li>
+                <li className="TrendOption">
+                  <h5 className="TrendLink">#ReactJs</h5>
+                  <p className="TrendNumber">213k Tweets</p>
+                </li>
+              </ul>
+            </div>
+          </div>
+        </div>
       </section>
     </section>
   );

@@ -51,7 +51,7 @@
 
   /*Navigation Bar*/
   .NavigationBar {
-    @apply flex items-center justify-between w-full bg-white 
+    @apply sticky top-0 z-20 flex items-center justify-between w-full bg-white 
     px-14 py-5 border border-solid border-navBarBorderBg !important;
   }
   .UserLinks {
@@ -94,9 +94,12 @@
   }
 
   /* user dorpDonw */
+  .UserDrop {
+    @apply relative;
+  }
   .UserDropdown {
     @apply px-[.75rem] py-[.75rem] bg-white border border-solid border-DropDownBorderColor
-    absolute top-20 right-4 shadow-UserDropDown rounded-xl w-[12rem] font-medium text-[.75rem] 
+    absolute top-10 left-0 shadow-UserDropDown rounded-xl w-[12rem] font-medium text-[.75rem] 
     flex flex-col gap-y-2 !important;
   }
   .OptionList {
@@ -120,7 +123,7 @@
   /*UserPage Section*/
   .UserHomePage {
     @apply w-full flex justify-center bg-DropDownBorderColor
-    !important;
+    relative !important;
   }
   .UserHomePageDetails {
     @apply sm:w-[75%] flex gap-x-[25px] py-[1.5rem];
@@ -253,6 +256,23 @@
 
   /*User Recomendation*/
   .UserRecomendations {
-    @apply basis-[30%];
+    @apply basis-[30%] !important;
+  }
+
+  /*UserTrends*/
+  .Trends {
+    @apply w-full px-5 py-[10.91px] bg-white rounded-lg shadow-navBarBorderBg;
+  }
+  .TrendsText {
+    @apply text-[12px] font-semibold text-optionColor mb-2 !important;
+  }
+  .ListOfTrends {
+    @apply flex flex-col items-start gap-y-6;
+  }
+  .TrendLink {
+    @apply text-base font-semibold text-userDropDownNameHolderColor !important;
+  }
+  .TrendNumber {
+    @apply text-[12px] font-medium text-inputColor;
   }
 }
