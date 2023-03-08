@@ -8,7 +8,6 @@ export const UserDropDown = () => {
     try {
       const data = await axios.get("http://localhost:4000/api/v1/logout");
       console.log(data);
-      localStorage.removeItem("token");
       if (data.status === 200) {
         navigate("/login");
       }

@@ -68,6 +68,10 @@ export const TweeterPostData = ({
                 alt="UserPostedImage"
               />
             )}
+            {
+              //to render the image you need to check the Url image generatred
+              //cause their are aved with the localHost:3000hostSpot
+            }
           </div>
         </div>
         <div className="TweetInfoDetails">
