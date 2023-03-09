@@ -66,7 +66,7 @@ export const UserHome = () => {
     });
   });
   return (
-    <section className="UserHomePage">
+    <section className="UserHomePage" onScroll={() => {}}>
       <section className="UserHomePageDetails">
         <div className="UserPostes">
           <section className="UserPost">
