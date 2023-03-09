@@ -13,23 +13,6 @@ export const RegisterForm = () => {
   const { register, handleSubmit, formState } = useForm({
     resolver: yupResolver(RegistrationSchema),
   });
-  const getAllTweets = async () => {
-    const data = {
-      token: localStorage.getItem("token"),
-      //for the token store it in the cookies using react-cookies hook
-      //[cookies , setCookies] = useCookies(["Name_Of_Cookie"])
-    };
-    const AllTweets = await axios.post(
-      "http://localhost:4000/api/v1/getAllTweets",
-      data
-    );
-    if (AllTweets?.status === 201) {
-      dispatch({
-        type: "SET_POSTED_TWEETS",
-        PostedTweets: AllTweets?.data?.tweets,
-      });
-    }
-  };
   const onSubmitHandle = async (data) => {
     const UserData = await axios.post(
       "http://localhost:4000/api/v1/register",
@@ -46,7 +29,6 @@ export const RegisterForm = () => {
       console.log(user);
       navigate(`/${user?.username}`);
     }
-    getAllTweets();
   };
   return (
     <section className="FormHolder" onSubmit={handleSubmit(onSubmitHandle)}>

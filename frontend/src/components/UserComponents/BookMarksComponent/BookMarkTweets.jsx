@@ -2,10 +2,29 @@ import { TweetFetchingOptions } from "../SharedComponents/TweetFecthingOptions";
 import { OptionLoadingTweetBookMarks } from "../../../static/OptionLoadingTweet";
 import { useDataLayerValue } from "../../../config/dataLayer";
 import { TweeterPostData } from "../SharedComponents/TweeterPostData";
+import { useEffect } from "react";
+import axios from "axios";
 
 export const BookMarksTweets = () => {
-  const [{ PostedTweets }] = useDataLayerValue();
-
+  const [{ PostedTweets }, dispatch] = useDataLayerValue();
+  const getAllTweets = async () => {
+    const data = {
+      token: localStorage.getItem("token"),
+    };
+    const AllTweets = await axios.post(
+      "http://localhost:4000/api/v1/getAllTweets",
+      data
+    );
+    if (AllTweets?.status === 201) {
+      dispatch({
+        type: "SET_POSTED_TWEETS",
+        PostedTweets: AllTweets?.data?.tweets,
+      });
+    }
+  };
+  useEffect(() => {
+    getAllTweets();
+  }, []);
   return (
     <section className="UserHomePage">
       <section className="ExploreTweetsDetails UserHomePageDetails">

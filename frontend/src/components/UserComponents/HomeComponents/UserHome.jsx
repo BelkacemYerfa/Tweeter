@@ -55,7 +55,9 @@ export const UserHome = () => {
       });
     }
   };
-
+  useEffect(() => {
+    getAllTweets();
+  }, []);
   useEffect(() => {
     window.addEventListener("click", (e) => {
       if (!TweetDropDownRef.current.contains(e.target)) {
@@ -66,7 +68,7 @@ export const UserHome = () => {
     });
   });
   return (
-    <section className="UserHomePage" onScroll={() => {}}>
+    <section className="UserHomePage">
       <section className="UserHomePageDetails">
         <div className="UserPostes">
           <section className="UserPost">

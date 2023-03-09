@@ -30,7 +30,6 @@ export const LoginForm = () => {
           localStorage.setItem("token", LoginUserData.data.token);
           setUserData(LoginUserData);
           navigate(`/${LoginUserData.data.userInfo.username}`);
-          getAllTweets();
         }
       } else {
         setUserData(LoginUserData);
@@ -38,21 +37,6 @@ export const LoginForm = () => {
     } catch (error) {
       localStorage.removeItem("token");
       console.log(error);
-    }
-  };
-  const getAllTweets = async () => {
-    const data = {
-      token: localStorage.getItem("token"),
-    };
-    const AllTweets = await axios.post(
-      "http://localhost:4000/api/v1/getAllTweets",
-      data
-    );
-    if (AllTweets?.status === 201) {
-      dispatch({
-        type: "SET_POSTED_TWEETS",
-        PostedTweets: AllTweets?.data?.tweets,
-      });
     }
   };
 

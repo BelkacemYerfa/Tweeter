@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { Link } from "react-router-dom";
 import { useDataLayerValue } from "../../../config/dataLayer";
 import { TweetOption } from "../../../static/TweeteOptions";
 
@@ -30,12 +31,20 @@ export const TweeterPostData = ({
               alt="user profilePic"
             />
           ) : (
-            <div className="UserFirstLetters UserFirstLettersSize">
+            <Link
+              to={`/profile/${UserInfo?.username}`}
+              className="UserFirstLetters UserFirstLettersSize"
+            >
               {UserInfo?.username.slice(0, 2)}
-            </div>
+            </Link>
           )}
           <div className="InfoHolder">
-            <h3 className="UserInfoName">{UserInfo?.username}</h3>
+            <Link
+              to={`/profile/${UserInfo?.username}`}
+              className="hover:underline"
+            >
+              {UserInfo?.username}
+            </Link>
             <p className="CreationDate">{CreateDate}</p>
           </div>
         </div>
