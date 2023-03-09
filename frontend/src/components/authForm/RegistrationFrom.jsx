@@ -16,6 +16,8 @@ export const RegisterForm = () => {
   const getAllTweets = async () => {
     const data = {
       token: localStorage.getItem("token"),
+      //for the token store it in the cookies using react-cookies hook
+      //[cookies , setCookies] = useCookies(["Name_Of_Cookie"])
     };
     const AllTweets = await axios.post(
       "http://localhost:4000/api/v1/getAllTweets",

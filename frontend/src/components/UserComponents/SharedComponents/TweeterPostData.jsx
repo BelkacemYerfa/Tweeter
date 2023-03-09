@@ -1,10 +1,10 @@
 import { useState } from "react";
 import { useDataLayerValue } from "../../../config/dataLayer";
+import { TweetOption } from "../../../static/TweeteOptions";
 
 export const TweeterPostData = ({
   TweetDetails,
   TweetImage,
-  TweetVisibility,
   UserInfo,
   CreateDate,
   Comments,
@@ -19,24 +19,6 @@ export const TweeterPostData = ({
     const file = e.target.files[0];
     SetUploadedCommentImage(URL.createObjectURL(file));
   };
-  const TweetOption = [
-    {
-      icon: "mode_comment",
-      text: "Comment",
-    },
-    {
-      icon: "sync",
-      text: "Retweet",
-    },
-    {
-      icon: "favorite",
-      text: "Liked",
-    },
-    {
-      icon: "bookmark",
-      text: "Saved",
-    },
-  ];
   return (
     <div className="TweetHolder">
       <div className="InfoTweetHolder">
@@ -84,7 +66,10 @@ export const TweeterPostData = ({
         <div className="line"></div>
         <div className="BtnSettingsInfo">
           {TweetOption.map((option) => (
-            <div className="OptionDetails" key={option.text}>
+            <div
+              className={`OptionDetails ${option.text} duration-300 ease-in-out hover:font-semibold`}
+              key={option.id}
+            >
               <div className="OptionDetailsHolder">
                 <span class="material-symbols-rounded">{option.icon}</span>
                 <p className="OptionText">{option.text}</p>

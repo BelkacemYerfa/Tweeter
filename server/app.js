@@ -14,7 +14,7 @@ app.use(express.json());
 //the genral route of all the apis
 app.use("/api/v1", router);
 
-const port = 4000;
+const port = process.env.PORT || 4000;
 
 const start = async () => {
   try {

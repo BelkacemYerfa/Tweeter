@@ -21,6 +21,7 @@ module.exports = {
         optionColor: "#4F4F4F",
         logOutWarning: "#EB5757",
         CommentFormBg: "#FAFAFA",
+        RetweetHoverState: "#27AE60",
       },
       fontFamily: {
         NotoFont: ["Noto Sans", "sans-serif"],
