@@ -1,24 +1,28 @@
 import { useState } from "react";
 import { useDataLayerValue } from "../../../config/dataLayer";
 import { TweeterPostData } from "../SharedComponents/TweeterPostData";
-import { Link } from "react-router-dom";
+import { TweetFetchingOptions } from "../SharedComponents/TweetFecthingOptions";
+import { OptionLoadingTweetExplore } from "../../../static/OptionLoadingTweet";
 
 export const ExploreTweets = () => {
   const [{ PostedTweets }] = useDataLayerValue();
   const [searchPost, setSearchPost] = useState("");
   const HandleSearchInfo = (e) => {
-    e.preventDefault();
     if (e.target.value !== " ") {
       setSearchPost(e.target.value);
     }
   };
+  const handleDataSented = (e) => {
+    e.preventDefault();
+    alert(searchPost);
+  };
   return (
     <section className="UserHomePage">
       <section className="ExploreTweetsDetails UserHomePageDetails">
-        <div className="UserPostes">
-          <form action="" className="SearchForm">
+        <div className="SearchPostHolder UserPostes">
+          <form action="" className="SearchForm" onSubmit={handleDataSented}>
             <div className="SearchIconHolder">
-              <span></span>
+              <span class="material-symbols-rounded">search</span>
             </div>
             <input
               className="SearchInput"
@@ -50,26 +54,7 @@ export const ExploreTweets = () => {
           </section>
         </div>
         <div className="UserRecomendations">
-          <div className="UserRecomendationHolder">
-            <ul className="ChoicesOptionHolder">
-              <li className="OptionHolder group">
-                <Link to="">Top</Link>
-                <div className="userChoiceLoaderLine"></div>
-              </li>
-              <li className="OptionHolder group">
-                <Link to="">Latest</Link>
-                <div className="userChoiceLoaderLine"></div>
-              </li>
-              <li className="OptionHolder group">
-                <Link to="">People</Link>
-                <div className="userChoiceLoaderLine"></div>
-              </li>
-              <li className="OptionHolder group">
-                <Link to="">Media</Link>
-                <div className="userChoiceLoaderLine"></div>
-              </li>
-            </ul>
-          </div>
+          <TweetFetchingOptions OptionArray={OptionLoadingTweetExplore} />
         </div>
       </section>
     </section>

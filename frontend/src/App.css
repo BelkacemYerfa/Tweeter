@@ -245,10 +245,20 @@
     @apply duration-300 ease-in-out cursor-pointer
     w-full h-11 flex items-center justify-center
     hover:bg-navBarBorderBg rounded-lg text-sm 
-    font-medium !important;
+    font-medium focus:bg-red-500;
   }
   .OptionDetailsHolder {
     @apply w-full flex items-center justify-center gap-x-2 !important;
+  }
+  /*Setting Hover State*/
+  .Retweet {
+    @apply hover:text-RetweetHoverState;
+  }
+  .Liked {
+    @apply hover:text-logOutWarning;
+  }
+  .Saved {
+    @apply hover:text-redirectingLinkBg;
   }
   .UserCommentHolder {
     @apply w-full flex items-start gap-x-4;
@@ -301,6 +311,9 @@
   }
 
   /*searchForm*/
+  .SearchIconHolder {
+    @apply flex items-center justify-center h-full w-10 text-inputColor !important;
+  }
   .SearchForm {
     @apply flex items-center gap-x-3 bg-white rounded-lg shadow-userHolder
     py-[11px] px-3;

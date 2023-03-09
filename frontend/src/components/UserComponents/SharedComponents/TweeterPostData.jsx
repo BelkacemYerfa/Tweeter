@@ -66,7 +66,10 @@ export const TweeterPostData = ({
         <div className="line"></div>
         <div className="BtnSettingsInfo">
           {TweetOption.map((option) => (
-            <div className="OptionDetails" key={option.id}>
+            <div
+              className={`OptionDetails ${option.text} duration-300 ease-in-out hover:font-semibold`}
+              key={option.id}
+            >
               <div className="OptionDetailsHolder">
                 <span class="material-symbols-rounded">{option.icon}</span>
                 <p className="OptionText">{option.text}</p>
