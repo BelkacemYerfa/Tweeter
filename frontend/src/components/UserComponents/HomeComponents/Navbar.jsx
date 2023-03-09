@@ -18,32 +18,31 @@ export const NavBar = () => {
       }
     });
   });
-
   return (
     <nav className="NavigationBar">
       <div className="LogoHolder">
         <img src={logo} alt="TweeterLogo" />
       </div>
-      <div className="UserLinks">
-        <div className="LinkHolder group ">
+      <ul className="UserLinks">
+        <li className="LinkHolder group ">
           <Link to={`/${user?.username}`} className="userLink">
             Home
           </Link>
           <div className="userLinkHover"></div>
-        </div>
-        <div className="LinkHolder group">
+        </li>
+        <li className="LinkHolder group">
           <Link to="/Explore" className="userLink">
             Explore
           </Link>
           <div className="userLinkHover"></div>
-        </div>
-        <div className="LinkHolder group">
+        </li>
+        <li className="LinkHolder group">
           <Link to="/Bookmarks" className="userLink">
             Bookmarks
           </Link>
           <div className="userLinkHover"></div>
-        </div>
-      </div>
+        </li>
+      </ul>
       <div className="UserDrop">
         <div className="AccountDropDownHolder" ref={UserDropDownRef}>
           <div className="UserInfoHolder">

@@ -86,7 +86,6 @@ const register = async (req, res) => {
 
 const logout = async (req, res) => {
   try {
-    localStorage.removeItem("token");
     res.status(200).json({
       msg: "user logged out successfully",
     });

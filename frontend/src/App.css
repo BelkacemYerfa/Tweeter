@@ -2,9 +2,13 @@
 @tailwind components;
 @tailwind utilities;
 
+.UserHomePage {
+  min-height: calc(100vh - 5rem);
+}
+
 @layer {
   .App {
-    @apply space-x-[-0.035em] font-NotoFont;
+    @apply space-x-[-0.035em] font-NotoFont !important;
   }
   .FormHolder {
     @apply w-[100vw] h-[100vh] overflow-x-hidden flex flex-col items-center justify-center;
@@ -51,14 +55,14 @@
 
   /*Navigation Bar*/
   .NavigationBar {
-    @apply sticky top-0 z-20 flex items-center justify-between w-full bg-white 
+    @apply sticky top-0 z-20 flex items-center justify-between w-full h-20 bg-white 
     px-14 py-5 border border-solid border-navBarBorderBg !important;
   }
   .UserLinks {
-    @apply relative flex items-center gap-x-20  h-full;
+    @apply flex items-center gap-x-20  h-full;
   }
   .LinkHolder {
-    @apply relative flex items-center justify-center;
+    @apply flex items-center justify-center;
   }
   .userLink {
     @apply duration-300 ease-in-out focus:text-submitBtnBg no-underline
@@ -67,9 +71,9 @@
     !important;
   }
   .userLinkHover {
-    @apply absolute bottom-0 duration-300 ease-in-out w-0 h-[2px] bg-submitBtnBg
-    group-focus-within:w-full border border-solid border-submitBtnBg
-    rounded-t-xl;
+    @apply absolute bottom-0 duration-300 ease-in-out w-0 h-[3px] bg-submitBtnBg
+    group-focus-within:w-[7%] border border-solid border-submitBtnBg
+    rounded-t-full;
   }
   .AccountDropDownHolder {
     @apply relative flex items-center gap-x-5 text-userDropDownNameHolderColor font-bold 
@@ -126,7 +130,10 @@
     relative !important;
   }
   .UserHomePageDetails {
-    @apply sm:w-[75%] flex gap-x-[25px] py-[1.5rem];
+    @apply relative sm:w-[75%] flex gap-x-[25px] py-[1.5rem];
+  }
+  .ExploreTweetsDetails {
+    @apply flex-row-reverse !important;
   }
 
   /*User Post Section*/
@@ -217,7 +224,7 @@
     @apply text-base font-normal text-optionColor;
   }
   .ImagePostHodler {
-    @apply h-[375px] w-full flex justify-center;
+    @apply h-[275px] w-full flex justify-center;
   }
   .TweetImage {
     @apply h-full w-auto rounded-lg !important;
@@ -259,9 +266,11 @@
 
   /*User Recomendation*/
   .UserRecomendations {
-    @apply basis-[30%] !important;
+    @apply basis-[30%] relative !important;
   }
-
+  .UserRecomendationHolder {
+    @apply fixed w-[25%];
+  }
   /*UserTrends*/
   .Trends {
     @apply w-full px-5 py-[10.91px] bg-white rounded-lg shadow-navBarBorderBg;
@@ -277,5 +286,39 @@
   }
   .TrendNumber {
     @apply text-[12px] font-medium text-inputColor;
+  }
+
+  /*Follow Users Component*/
+  .ListUsersToFollow {
+    @apply mt-2 !important;
+  }
+  .UserToFollow {
+    @apply w-full flex items-center justify-between !important;
+  }
+  .addFollowBtn {
+    @apply flex items-center gap-x-1 rounded bg-submitBtnBg text-white 
+    duration-300 ease-in-out hover:opacity-90 text-[12px] py-1 px-2 !important;
+  }
+
+  /*searchForm*/
+  .SearchForm {
+    @apply flex items-center gap-x-3 bg-white rounded-lg shadow-userHolder
+    py-[11px] px-3;
+  }
+  .SearchBtn {
+    @apply py-2 px-6 !important;
+  }
+
+  /*user Explore Chocie Holder*/
+  .ChoicesOptionHolder {
+    @apply flex flex-col gap-y-4 w-[90%] bg-white rounded-lg shadow-userHolder px-5 py-6 !important;
+  }
+  .OptionHolder {
+    @apply flex w-full font-semibold focus-within:text-submitBtnBg items-center cursor-pointer text-inputColor 
+    duration-300 ease-in-out hover:text-submitBtnBg !important;
+  }
+  .userChoiceLoaderLine {
+    @apply absolute left-0 h-0 duration-300 ease-in-out group-hover:h-[30px] w-[3px]
+    group-focus-within:h-[30px] bg-submitBtnBg border border-solid border-submitBtnBg rounded-tr-full rounded-br-full;
   }
 }

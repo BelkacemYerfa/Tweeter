@@ -3,6 +3,7 @@ import { useState, useRef, useEffect } from "react";
 import { TweetVisibilityOption } from "../../../static/UserTweetVisibility";
 import { TweeterPostData } from "../SharedComponents/TweeterPostData";
 import axios from "axios";
+import CircleLoader from "react-spinners/CircleLoader";
 
 export const UserHome = () => {
   const [{ user, PostedTweets }, dispatch] = useDataLayerValue();
@@ -13,6 +14,7 @@ export const UserHome = () => {
     text: "Everyone can reply",
   });
   const [UploadedImage, setUploadedImage] = useState(null);
+  const [isLoading, setIsLoading] = useState(false);
   const [TweetDetails, setTweetDetails] = useState(null);
   const handleUploadedImage = (e) => {
     const file = e.target.files[0];
@@ -181,21 +183,63 @@ export const UserHome = () => {
           </section>
         </div>
         <div className="UserRecomendations">
-          <div className="Trends">
-            <div className="TrendsHolder">
-              <p className="TrendsText">Trends for you</p>
-              <div className="line"></div>
-              <br />
-              <ul className="ListOfTrends">
-                <li className="TrendOption">
-                  <h5 className="TrendLink">#ReactJs</h5>
-                  <p className="TrendNumber">213k Tweets</p>
-                </li>
-                <li className="TrendOption">
-                  <h5 className="TrendLink">#ReactJs</h5>
-                  <p className="TrendNumber">213k Tweets</p>
-                </li>
-              </ul>
+          <div className="UserRecomendationHolder">
+            <div className="Trends">
+              <div className="TrendsHolder">
+                <p className="TrendsText">Trends for you</p>
+                <div className="line"></div>
+                <br />
+                <ul className="ListOfTrends">
+                  <li className="TrendOption">
+                    <h5 className="TrendLink">#ReactJs</h5>
+                    <p className="TrendNumber">213k Tweets</p>
+                  </li>
+                  <li className="TrendOption">
+                    <h5 className="TrendLink">#ReactJs</h5>
+                    <p className="TrendNumber">213k Tweets</p>
+                  </li>
+                </ul>
+              </div>
+            </div>
+            <br />
+            <div className="UserRecomendations UserRecomendationPeopleToFollow">
+              <div className="Trends PeopleToFollowHolder">
+                <p className="TrendsText PeopleToFollowText">Who to follow</p>
+                <div className="line"></div>
+                <ul className="ListUsersToFollow">
+                  <li className="UserToFollow">
+                    <div className="flex items-center gap-x-4">
+                      <img
+                        src="https://i.pinimg.com/550x/d6/21/d5/d621d5fc76f82b1f5e7db8fe0a5b047b.jpg"
+                        className="userProfilePic"
+                        alt="UserProfilePic"
+                      />
+                      <div className="UserToFollowInfo">
+                        <h5 className="UserName">User Name</h5>
+                        <p className="CreationDate">213k Follows</p>
+                      </div>
+                    </div>
+                    <button
+                      type="submit"
+                      className="addFollowBtn"
+                      onClick={() => {
+                        setIsLoading(!isLoading);
+                      }}
+                    >
+                      {isLoading ? (
+                        <>
+                          <span class="material-symbols-rounded">
+                            person_add
+                          </span>
+                          <p className="BtnAddColor">Follow</p>
+                        </>
+                      ) : (
+                        <CircleLoader color="#fff" size={20} />
+                      )}
+                    </button>
+                  </li>
+                </ul>
+              </div>
             </div>
           </div>
         </div>
