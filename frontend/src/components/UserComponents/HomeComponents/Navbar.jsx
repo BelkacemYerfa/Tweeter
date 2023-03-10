@@ -10,13 +10,15 @@ export const NavBar = () => {
   const [UserDropDownToggle, SetUserDropDownToggle] = useState(false);
 
   useEffect(() => {
-    window.addEventListener("click", (e) => {
-      if (!UserDropDownRef.current.contains(e.target)) {
-        SetUserDropDownToggle(false);
-      } else {
-        SetUserDropDownToggle(true);
-      }
-    });
+    if (UserDropDownRef.current !== null) {
+      window.addEventListener("click", (e) => {
+        if (!UserDropDownRef.current.contains(e.target)) {
+          SetUserDropDownToggle(false);
+        } else {
+          SetUserDropDownToggle(true);
+        }
+      });
+    }
   });
   return (
     <nav className="NavigationBar">

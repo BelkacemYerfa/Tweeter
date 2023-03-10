@@ -59,13 +59,15 @@ export const UserHome = () => {
     getAllTweets();
   }, []);
   useEffect(() => {
-    window.addEventListener("click", (e) => {
-      if (!TweetDropDownRef.current.contains(e.target)) {
-        setTweetVisibilityDropDown(false);
-      } else {
-        setTweetVisibilityDropDown(true);
-      }
-    });
+    if (TweetDropDownRef.current !== null) {
+      window.addEventListener("click", (e) => {
+        if (!TweetDropDownRef.current.contains(e.target)) {
+          setTweetVisibilityDropDown(false);
+        } else {
+          setTweetVisibilityDropDown(true);
+        }
+      });
+    }
   });
   return (
     <section className="UserHomePage">
@@ -172,6 +174,7 @@ export const UserHome = () => {
             {PostedTweets?.map((tweet) => (
               <TweeterPostData
                 key={tweet?._id}
+                TweetId={tweet?._id}
                 TweetDetails={tweet?.TweetDetails}
                 TweetImage={tweet?.TweetImage}
                 TweetVisibility={tweet?.TweetVisibility}

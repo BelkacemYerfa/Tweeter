@@ -2,9 +2,11 @@ import { useState } from "react";
 import { Link } from "react-router-dom";
 import { useDataLayerValue } from "../../../config/dataLayer";
 import { TweetOption } from "../../../static/TweeteOptions";
+import axios from "axios";
 
 export const TweeterPostData = ({
   TweetDetails,
+  TweetId,
   TweetImage,
   UserInfo,
   CreateDate,
@@ -14,7 +16,14 @@ export const TweeterPostData = ({
 }) => {
   const [{ user }] = useDataLayerValue();
   const [UploadedCommentImage, SetUploadedCommentImage] = useState(null);
-
+  const SaveTweet = async () => {
+    const data = { token: localStorage.getItem("token"), tweetId: TweetId };
+    const SaveTweet = await axios.post(
+      "http://localhost:4000/api/v1/savedTweet",
+      data
+    );
+    console.log(SaveTweet);
+  };
   const HandleUploadedImage = (e) => {
     e.preventDefault();
     const file = e.target.files[0];
@@ -78,6 +87,7 @@ export const TweeterPostData = ({
             <div
               className={`OptionDetails ${option.text} duration-300 ease-in-out hover:font-semibold`}
               key={option.id}
+              onClick={option.text === "Saved" ? SaveTweet : null}
             >
               <div className="OptionDetailsHolder">
                 <span class="material-symbols-rounded">{option.icon}</span>
