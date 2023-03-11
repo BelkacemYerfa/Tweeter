@@ -24,6 +24,14 @@ export const TweeterPostData = ({
     );
     console.log(SaveTweet);
   };
+  const Update = async () => {
+    const data = { token: localStorage.getItem("token"), tweetId: TweetId };
+    const UpdateTweet = await axios.patch(
+      "http://localhost:4000/api/v1/likeTweet",
+      data
+    );
+    console.log(UpdateTweet);
+  };
   const HandleUploadedImage = (e) => {
     e.preventDefault();
     const file = e.target.files[0];
@@ -87,7 +95,15 @@ export const TweeterPostData = ({
             <div
               className={`OptionDetails ${option.text} duration-300 ease-in-out hover:font-semibold`}
               key={option.id}
-              onClick={option.text === "Saved" ? SaveTweet : null}
+              onClick={
+                option.text === "Saved"
+                  ? SaveTweet
+                  : option.text === "Liked"
+                  ? Update
+                  : null
+                  ? Update
+                  : null
+              }
             >
               <div className="OptionDetailsHolder">
                 <span class="material-symbols-rounded">{option.icon}</span>

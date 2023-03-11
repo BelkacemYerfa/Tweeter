@@ -12,12 +12,12 @@ export const BookMarksTweets = () => {
       token: localStorage.getItem("token"),
     }; */
     const AllSavedTweets = await axios.get(
-      "http://localhost:4000/api/v1/getSavedTweets",
+      "http://localhost:4000/api/v1/getAllSavedTweets",
       {
         token: localStorage.getItem("token"),
       }
     );
-    console.log(AllSavedTweets);
+    alert(AllSavedTweets);
   };
   useEffect(() => {
     getAllTweets();

@@ -45,7 +45,7 @@ const LoadAllSavedTweets = async (req, res) => {
         msg: "Unauthorized , check your credentials",
       });
     }
-    const Tweets = await SavedTweetsSchema.find().limit(1);
+    const Tweets = await SavedTweetsSchema.find({});
     res.status(201).json({
       msg: "Tweets fetched successfully",
       Tweets: Tweets,
