@@ -4,7 +4,7 @@ const likedTweetsSchema = require("../models/LikedTweets");
 
 const LikeTweet = async (req, res) => {
   try {
-    const { token, tweetId } = req.body;
+    const { token, tweetId, userId } = req.body;
     if (!token) {
       return res.status(400).json({
         msg: "Bad request",
@@ -16,6 +16,20 @@ const LikeTweet = async (req, res) => {
         msg: "Unauthorized , check your credentials",
       });
     }
+
+    const LikedTweets = await likedTweetsSchema.find({
+      userId: userId,
+    });
+    if (LikedTweets.length === 0) {
+      const Tweet = await likedTweetsSchema.create({
+        tweetId: tweetId,
+        userId: userId,
+      });
+    } else {
+      return res.status(201).json({
+        msg: "already liked this Tweet",
+      });
+    }
     const LikeTweet = await TweetSchema.findOneAndUpdate(
       { _id: tweetId },
       { $inc: { Liked: +1 } }
@@ -23,19 +37,6 @@ const LikeTweet = async (req, res) => {
     if (LikeTweet === null) {
       return res.status(404).json({
         msg: "sorry tweet not Found",
-      });
-    }
-    const LikedTweets = await likedTweetsSchema.findById({
-      userId: LikeTweet.UserInfo._id,
-    });
-    if (LikedTweets === null) {
-      const Tweet = await likedTweetsSchema.create({
-        tweetId: LikeTweet._id,
-        userId: LikeTweet.UserInfo._id,
-      });
-    } else {
-      return res.status(201).json({
-        msg: "already liked this Tweet",
       });
     }
     res.status(201).json({

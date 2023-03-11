@@ -25,7 +25,11 @@ export const TweeterPostData = ({
     console.log(SaveTweet);
   };
   const Update = async () => {
-    const data = { token: localStorage.getItem("token"), tweetId: TweetId };
+    const data = {
+      token: localStorage.getItem("token"),
+      tweetId: TweetId,
+      userId: user?._id,
+    };
     const UpdateTweet = await axios.patch(
       "http://localhost:4000/api/v1/likeTweet",
       data
