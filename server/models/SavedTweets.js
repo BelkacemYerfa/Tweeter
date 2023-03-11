@@ -1,14 +1,13 @@
 const mongoose = require("mongoose");
 
 const SavedTweetsSchema = new mongoose.Schema({
-  tweet: {
-    type: Object,
+  tweetId: {
+    type: String,
     required: true,
   },
-  Saved: {
-    type: Boolean,
+  userId: {
+    type: String,
     required: true,
-    default: false,
   },
 });
 

@@ -16,11 +16,11 @@ const LikeTweet = async (req, res) => {
         msg: "Unauthorized , check your credentials",
       });
     }
-
-    const LikedTweets = await likedTweetsSchema.find({
+    const LikedTweets = await likedTweetsSchema.findOne({
       userId: userId,
+      tweetId: tweetId,
     });
-    if (LikedTweets.length === 0) {
+    if (!LikedTweets) {
       const Tweet = await likedTweetsSchema.create({
         tweetId: tweetId,
         userId: userId,
@@ -41,6 +41,7 @@ const LikeTweet = async (req, res) => {
     }
     res.status(201).json({
       msg: "Tweet liked successfully",
+      LikedTweet: LikeTweet,
     });
   } catch (error) {
     return res.status(500).json({

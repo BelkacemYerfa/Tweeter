@@ -41,6 +41,7 @@ export const TweeterPostData = ({
     const file = e.target.files[0];
     SetUploadedCommentImage(URL.createObjectURL(file));
   };
+  console.log(TweetImage);
   return (
     <div className="TweetHolder">
       <div className="InfoTweetHolder">
@@ -72,13 +73,15 @@ export const TweeterPostData = ({
         <div className="UserDetails">
           <p className="DetailsInfo">{TweetDetails}</p>
           <br />
-          <div className="ImagePostHodler">
+          <div className="ImagePostedHodler">
             {TweetImage && (
-              <img
-                src={TweetImage}
-                className="TweetImage"
-                alt="UserPostedImage"
-              />
+              <div className="ImagePostHodler">
+                <img
+                  src={TweetImage}
+                  className="TweetImage"
+                  alt="UserPostedImage"
+                />
+              </div>
             )}
             {
               //to render the image you need to check the Url image generatred
