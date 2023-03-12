@@ -6,7 +6,7 @@ import { useEffect } from "react";
 import axios from "axios";
 
 export const BookMarksTweets = () => {
-  const [{ SavedTweets }, dispatch] = useDataLayerValue();
+  const [{ SavedTweets, user }, dispatch] = useDataLayerValue();
 
   const getAllTweets = async () => {
     try {
@@ -34,8 +34,27 @@ export const BookMarksTweets = () => {
       console.log(error);
     }
   };
+  const getAllLikedTweetsOfUser = async () => {
+    try {
+      const LikedTweets = await axios.post(
+        "http://localhost:4000/api/v1/getAllLikedTweets",
+        {
+          headers: {
+            Authorization: `Bearer ${localStorage.getItem("token")}`,
+          },
+        },
+        {
+          userId: user?._id,
+        }
+      );
+      console.log(LikedTweets);
+    } catch (error) {
+      console.log(error);
+    }
+  };
   useEffect(() => {
     getAllTweets();
+    getAllLikedTweetsOfUser();
   }, []);
   return (
     <section className="UserHomePage">

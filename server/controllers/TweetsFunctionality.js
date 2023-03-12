@@ -50,4 +50,43 @@ const LikeTweet = async (req, res) => {
   }
 };
 
-module.exports = { LikeTweet };
+const getAllLikedTweets = async (req, res) => {
+  try {
+    const authHeader = req.headers.authorization;
+    const token = authHeader.split(" ")[1];
+    console.log(token);
+    const { userId } = req.body;
+    if (!token) {
+      return res.status(400).json({
+        msg: "bad request",
+      });
+    }
+    const match = JWT.verify(token, process.env.JWT_SECRET);
+    if (!match) {
+      return res.status(401).json({
+        msg: "unauthorized , check your credentials",
+      });
+    }
+    const LikedTweets = await likedTweetsSchema.find({ userId: userId });
+    if (!LikedTweets) {
+      return res.status(404).json({
+        msg: "no liked tweets found",
+      });
+    }
+    const LikedUserTweets = [];
+    for (let i = 0; i < LikedTweets.length; i++) {
+      const Tweet = await TweetSchema.findById(LikedTweets[i]?.tweetId);
+      LikedUserTweets.push(Tweet);
+    }
+    res.status(201).json({
+      msg: "liked tweets fetched seccefully",
+      LikedTweets: LikedUserTweets,
+    });
+  } catch (error) {
+    return res.status(500).json({
+      msg: error.message,
+    });
+  }
+};
+
+module.exports = { LikeTweet, getAllLikedTweets };
