@@ -1,5 +1,5 @@
 import { Link } from "react-router-dom";
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import { LoginSchema } from "../../static/authSchema";
 import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
@@ -15,6 +15,7 @@ export const LoginForm = () => {
   const { register, handleSubmit, formState } = useForm({
     resolver: yupResolver(LoginSchema),
   });
+
   const onSubmitHandle = async (data) => {
     try {
       const LoginUserData = await axios.post(
@@ -28,6 +29,11 @@ export const LoginForm = () => {
         });
         if (LoginUserData.data.token) {
           localStorage.setItem("token", LoginUserData.data.token);
+          localStorage.setItem(
+            "user",
+            JSON.stringify(LoginUserData.data.userInfo)
+          );
+          console.log(user);
           setUserData(LoginUserData);
           navigate(`/${LoginUserData.data.userInfo.username}`);
         }
@@ -39,7 +45,6 @@ export const LoginForm = () => {
       console.log(error);
     }
   };
-
   return (
     <section className="FormHolder" onSubmit={handleSubmit(onSubmitHandle)}>
       <div className="FormDetails">

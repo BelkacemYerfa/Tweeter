@@ -8,16 +8,14 @@ import axios from "axios";
 export const BookMarksTweets = () => {
   const [{ PostedTweets }, dispatch] = useDataLayerValue();
   const getAllTweets = async () => {
-    /* const data = {
+    const data = {
       token: localStorage.getItem("token"),
-    }; */
+    };
     const AllSavedTweets = await axios.get(
       "http://localhost:4000/api/v1/getAllSavedTweets",
-      {
-        token: localStorage.getItem("token"),
-      }
+      data
     );
-    alert(AllSavedTweets);
+    console.log(AllSavedTweets);
   };
   useEffect(() => {
     getAllTweets();

@@ -17,14 +17,18 @@ export const TweeterPostData = ({
   const [{ user }] = useDataLayerValue();
   const [UploadedCommentImage, SetUploadedCommentImage] = useState(null);
   const SaveTweet = async () => {
-    const data = { token: localStorage.getItem("token"), tweetId: TweetId };
-    const SaveTweet = await axios.post(
+    const data = {
+      token: localStorage.getItem("token"),
+      tweetId: TweetId,
+      userId: user?._id,
+    };
+    const SaveTweet = await axios.patch(
       "http://localhost:4000/api/v1/savedTweet",
       data
     );
     console.log(SaveTweet);
   };
-  const Update = async () => {
+  const likedTweet = async () => {
     const data = {
       token: localStorage.getItem("token"),
       tweetId: TweetId,
@@ -41,7 +45,6 @@ export const TweeterPostData = ({
     const file = e.target.files[0];
     SetUploadedCommentImage(URL.createObjectURL(file));
   };
-  console.log(TweetImage);
   return (
     <div className="TweetHolder">
       <div className="InfoTweetHolder">
@@ -106,14 +109,12 @@ export const TweeterPostData = ({
                 option.text === "Saved"
                   ? SaveTweet
                   : option.text === "Liked"
-                  ? Update
-                  : null
-                  ? Update
+                  ? likedTweet
                   : null
               }
             >
               <div className="OptionDetailsHolder">
-                <span class="material-symbols-rounded">{option.icon}</span>
+                <span className="material-symbols-rounded">{option.icon}</span>
                 <p className="OptionText">{option.text}</p>
               </div>
             </div>

@@ -67,11 +67,6 @@ const register = async (req, res) => {
     }
     const salt = await bcrypt.genSalt();
     const passwordHash = await bcrypt.hash(password, salt);
-    const decrypte = await bcrypt.compare(
-      "F0LxhywBlwqX8pMraeuSPaPgn7Jsgrl3y1j5KdmmZsyTA9Wtwu",
-      salt
-    );
-    console.log(decrypte);
     const User = await UserLogin.create({
       username: username,
       email: email,

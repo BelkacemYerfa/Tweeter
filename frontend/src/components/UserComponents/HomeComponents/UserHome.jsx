@@ -54,6 +54,12 @@ export const UserHome = () => {
         PostedTweets: AllTweets?.data?.tweets,
       });
     }
+    if (typeof user === "object") {
+      dispatch({
+        type: "SET_USER",
+        user: JSON.parse(localStorage.getItem("user")),
+      });
+    }
   };
   useEffect(() => {
     getAllTweets();
@@ -68,7 +74,7 @@ export const UserHome = () => {
         }
       });
     }
-  });
+  }, [TweetDropDownRef]);
   return (
     <section className="UserHomePage">
       <section className="UserHomePageDetails">
@@ -85,7 +91,7 @@ export const UserHome = () => {
                 />
               ) : (
                 <div className="UserFirstLetters">
-                  {user?.username.slice(0, 2)}
+                  {user?.username?.slice(0, 2)}
                 </div>
               )}
               <form className="TweetSection" onSubmit={HandlePostTweet}>
@@ -233,7 +239,7 @@ export const UserHome = () => {
                     >
                       {isLoading ? (
                         <>
-                          <span class="material-symbols-rounded">
+                          <span className="material-symbols-rounded">
                             person_add
                           </span>
                           <p className="BtnAddColor">Follow</p>

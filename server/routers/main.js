@@ -15,7 +15,7 @@ router.route("/login").post(login);
 router.route("/logout").get(logout);
 router.route("/PostTweet").post(PostTweet);
 router.route("/getAllTweets").post(GetTweets);
-router.route("/savedTweet").post(SaveTweet);
+router.route("/savedTweet").patch(SaveTweet);
 router.route("/getAllSavedTweets").get(LoadAllSavedTweets);
 router.route("/likeTweet").patch(LikeTweet);
 

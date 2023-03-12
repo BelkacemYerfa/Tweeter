@@ -1,7 +1,5 @@
 export let initialState = {
-  user: {
-    username: "bylka",
-  },
+  user: {},
   PostedTweets: [],
 };
 

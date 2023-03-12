@@ -29,12 +29,16 @@ const SaveTweet = async (req, res) => {
       tweetId: tweetId,
       userId: userId,
     });
-    const TweetSaved = await TweetSchema.findOne({ _id: tweetId });
+    const TweetSaved = await TweetSchema.findByIdAndUpdate(
+      { _id: tweetId },
+      { $inc: { Saved: +1 } }
+    );
     if (!TweetSaved) {
       return res.status(404).json({
         msg: "tweet not found",
       });
     }
+
     res.status(201).json({
       msg: "Tweet saved successfully",
     });
@@ -67,10 +71,9 @@ const LoadAllSavedTweets = async (req, res) => {
     }
     const TweetsArray = [];
     for (let i = 0; i < Tweets.length; i++) {
-      const Tweet = await TweetSchema.findOne({ _id: Tweets[i].tweetId });
+      const Tweet = await TweetSchema.findOne({ _id: Tweets[i]?.tweetId });
       TweetsArray.push(Tweet);
     }
-
     res.status(201).json({
       msg: "Tweets fetched successfully",
       Tweets: TweetsArray,
