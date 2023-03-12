@@ -1,5 +1,5 @@
 import { ExploreTweets } from "../components/UserComponents/ExploreComponents/ExploreTweets";
-import { NavBar } from "../components/UserComponents/HomeComponents/Navbar";
+import { NavBar } from "../components/UserComponents/SharedComponents/Navbar";
 
 export const Explore = () => {
   return (

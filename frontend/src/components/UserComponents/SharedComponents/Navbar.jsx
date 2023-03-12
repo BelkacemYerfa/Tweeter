@@ -2,7 +2,7 @@ import { Link } from "react-router-dom";
 import { useDataLayerValue } from "../../../config/dataLayer";
 import logo from "../../../assets/tweeter.22779de5.svg";
 import { useState, useRef, useEffect } from "react";
-import { UserDropDown } from "./UserDropDown";
+import { UserDropDown } from "../HomeComponents/UserDropDown";
 
 export const NavBar = () => {
   const [{ user }] = useDataLayerValue();
@@ -27,7 +27,7 @@ export const NavBar = () => {
       </div>
       <ul className="UserLinks">
         <li className="LinkHolder group ">
-          <Link to={`/${user?.username}`} className="userLink">
+          <Link to={`/Home/${user?.username}`} className="userLink">
             Home
           </Link>
           <div className="userLinkHover"></div>

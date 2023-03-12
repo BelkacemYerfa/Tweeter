@@ -10,10 +10,9 @@ mongoose.set("strictQuery", true);
 
 app.use(express.json());
 app.use(cors());
-//the api will be available on http://localhost:5000/api/v1
+//the api will be available on http://localhost:4000/api/v1
 //the genral route of all the apis
 app.use("/api/v1", router);
-
 const port = process.env.PORT || 4000;
 
 const start = async () => {

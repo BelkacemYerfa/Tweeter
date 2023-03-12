@@ -46,6 +46,7 @@ export const UserHome = () => {
     };
     const AllTweets = await axios.post(
       "http://localhost:4000/api/v1/getAllTweets",
+      //for the token need to be passed in the headers
       data
     );
     if (AllTweets?.status === 201) {

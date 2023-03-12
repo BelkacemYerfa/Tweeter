@@ -16,7 +16,7 @@ router.route("/logout").get(logout);
 router.route("/PostTweet").post(PostTweet);
 router.route("/getAllTweets").post(GetTweets);
 router.route("/savedTweet").patch(SaveTweet);
-router.route("/getAllSavedTweets").get(LoadAllSavedTweets);
+router.route("/getAllSavedTweets").post(LoadAllSavedTweets);
 router.route("/likeTweet").patch(LikeTweet);
 
 module.exports = router;

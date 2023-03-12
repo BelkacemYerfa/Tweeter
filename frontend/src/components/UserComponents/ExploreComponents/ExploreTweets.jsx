@@ -31,6 +31,12 @@ export const ExploreTweets = () => {
         PostedTweets: AllTweets?.data?.tweets,
       });
     }
+    if (typeof user === "object") {
+      dispatch({
+        type: "SET_USER",
+        user: JSON.parse(localStorage.getItem("user")),
+      });
+    }
   };
   useEffect(() => {
     getAllTweets();

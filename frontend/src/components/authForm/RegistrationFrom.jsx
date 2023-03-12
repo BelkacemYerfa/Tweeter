@@ -14,20 +14,26 @@ export const RegisterForm = () => {
     resolver: yupResolver(RegistrationSchema),
   });
   const onSubmitHandle = async (data) => {
-    const UserData = await axios.post(
-      "http://localhost:4000/api/v1/register",
-      data
-    );
-    if (UserData?.status === 201) {
-      dispatch({
-        type: "SET_USER",
-        user: UserData.data.userInfo,
-      });
-    }
-    if (UserData.data.token) {
-      localStorage.setItem("token", UserData.data.token);
-      console.log(user);
-      navigate(`/${user?.username}`);
+    try {
+      const UserData = await axios.post(
+        "http://localhost:4000/api/v1/register",
+        data
+      );
+      if (UserData?.status === 201) {
+        dispatch({
+          type: "SET_USER",
+          user: UserData?.data?.userInfo,
+        });
+      }
+      if (UserData?.data?.token) {
+        localStorage.setItem("token", UserData?.data?.token);
+        localStorage.setItem("user", JSON.stringify(UserData?.data?.userInfo));
+        console.log(user);
+        navigate(`/Home/${user?.username}`);
+      }
+    } catch (error) {
+      localStorage.removeItem("token");
+      console.log(error);
     }
   };
   return (

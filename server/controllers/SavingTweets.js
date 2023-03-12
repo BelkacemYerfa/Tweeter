@@ -38,7 +38,6 @@ const SaveTweet = async (req, res) => {
         msg: "tweet not found",
       });
     }
-
     res.status(201).json({
       msg: "Tweet saved successfully",
     });

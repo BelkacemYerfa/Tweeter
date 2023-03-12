@@ -35,7 +35,7 @@ export const LoginForm = () => {
           );
           console.log(user);
           setUserData(LoginUserData);
-          navigate(`/${LoginUserData.data.userInfo.username}`);
+          navigate(`/Home/${LoginUserData.data.userInfo.username}`);
         }
       } else {
         setUserData(LoginUserData);
