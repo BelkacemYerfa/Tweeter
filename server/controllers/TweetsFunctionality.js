@@ -21,7 +21,7 @@ const LikeTweet = async (req, res) => {
       tweetId: tweetId,
     });
     if (!LikedTweets) {
-      const Tweet = await likedTweetsSchema.create({
+      await likedTweetsSchema.create({
         tweetId: tweetId,
         userId: userId,
       });
@@ -57,7 +57,8 @@ const getAllLikedTweets = async (req, res) => {
       throw new Error("invalid Creditels , try again");
     }
     const token = authHeader.split(" ")[1];
-    const { userId } = req.body;
+    const { userId } = req.params;
+    console.log(userId);
     if (!token) {
       return res.status(400).json({
         msg: "bad request",
@@ -69,17 +70,23 @@ const getAllLikedTweets = async (req, res) => {
         msg: "Unauthorized , check your credentials",
       });
     }
-    const LikedTweets = await likedTweetsSchema.find({ userId: userId });
-    if (!LikedTweets) {
+    const LikedTweets = await likedTweetsSchema.find({
+      userId: req.params.userId,
+    });
+    console.log(LikedTweets);
+    if (LikedTweets.length === 0) {
       return res.status(404).json({
         msg: "no liked tweets found",
       });
     }
+    //fix the api with the auth
+    //the saved api try to send the search by id
     const LikedUserTweets = [];
     for (let i = 0; i < LikedTweets.length; i++) {
-      const Tweet = await TweetSchema.findById(LikedTweets[i]?.tweetId);
+      const Tweet = await TweetSchema.findOne({ _id: LikedTweets[i]?.tweetId });
       LikedUserTweets.push(Tweet);
     }
+    console.log(LikedUserTweets);
     res.status(201).json({
       msg: "liked tweets fetched seccefully",
       LikedTweets: LikedUserTweets,

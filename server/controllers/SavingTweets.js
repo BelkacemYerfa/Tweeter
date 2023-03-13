@@ -50,7 +50,7 @@ const SaveTweet = async (req, res) => {
 
 const LoadAllSavedTweets = async (req, res) => {
   try {
-    const { token } = req.body;
+    const { token, userId } = req.body;
     if (!token) {
       return res.status(400).json({
         msg: "Bad request",
@@ -62,7 +62,7 @@ const LoadAllSavedTweets = async (req, res) => {
         msg: "Unauthorized , check your credentials",
       });
     }
-    const Tweets = await SavedTweetsSchema.find({});
+    const Tweets = await SavedTweetsSchema.find({ userId: userId });
     if (!Tweets) {
       return res.status(404).json({
         msg: "No tweets found",

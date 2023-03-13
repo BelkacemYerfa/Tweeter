@@ -12,6 +12,7 @@ export const BookMarksTweets = () => {
     try {
       const data = {
         token: localStorage.getItem("token"),
+        userId: user?._id,
       };
       const AllSavedTweets = await axios.post(
         "http://localhost:4000/api/v1/getAllSavedTweets",
@@ -35,20 +36,22 @@ export const BookMarksTweets = () => {
     }
   };
   const getAllLikedTweetsOfUser = async () => {
-    const data = {
-      userId: user?._id,
-    };
     try {
       const LikedTweets = await axios.get(
-        "http://localhost:4000/api/v1/getAllLikedTweets",
+        `http://localhost:4000/api/v1/getAllLikedTweets/${user?._id}`,
         {
           headers: {
             Authorization: `Bearer ${localStorage.getItem("token")}`,
           },
-        },
-        data
+        }
       );
       console.log(LikedTweets);
+      if (LikedTweets?.status === 201) {
+        dispatch({
+          type: "SET_LIKED_TWEETS",
+          LikedTweets: LikedTweets?.data?.LikedTweets,
+        });
+      }
     } catch (error) {
       console.log(error);
     }

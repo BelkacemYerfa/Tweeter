@@ -11,4 +11,8 @@ const likedTweetsSchema = new mongoose.Schema({
   },
 });
 
-module.exports = mongoose.model("LikedTweets", likedTweetsSchema);
+module.exports = mongoose.model(
+  "LikedTweets",
+  likedTweetsSchema,
+  "TweetsBiengLiked"
+);
