@@ -35,17 +35,18 @@ export const BookMarksTweets = () => {
     }
   };
   const getAllLikedTweetsOfUser = async () => {
+    const data = {
+      userId: user?._id,
+    };
     try {
-      const LikedTweets = await axios.post(
+      const LikedTweets = await axios.get(
         "http://localhost:4000/api/v1/getAllLikedTweets",
         {
           headers: {
             Authorization: `Bearer ${localStorage.getItem("token")}`,
           },
         },
-        {
-          userId: user?._id,
-        }
+        data
       );
       console.log(LikedTweets);
     } catch (error) {

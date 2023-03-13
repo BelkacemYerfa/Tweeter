@@ -53,8 +53,10 @@ const LikeTweet = async (req, res) => {
 const getAllLikedTweets = async (req, res) => {
   try {
     const authHeader = req.headers.authorization;
+    if (!authHeader || !authHeader.startsWith("Bearer ")) {
+      throw new Error("invalid Creditels , try again");
+    }
     const token = authHeader.split(" ")[1];
-    console.log(token);
     const { userId } = req.body;
     if (!token) {
       return res.status(400).json({
@@ -64,7 +66,7 @@ const getAllLikedTweets = async (req, res) => {
     const match = JWT.verify(token, process.env.JWT_SECRET);
     if (!match) {
       return res.status(401).json({
-        msg: "unauthorized , check your credentials",
+        msg: "Unauthorized , check your credentials",
       });
     }
     const LikedTweets = await likedTweetsSchema.find({ userId: userId });
