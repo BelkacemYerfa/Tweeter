@@ -50,7 +50,12 @@ const SaveTweet = async (req, res) => {
 
 const LoadAllSavedTweets = async (req, res) => {
   try {
-    const { token, userId } = req.body;
+    const authHeader = req.headers.authorization;
+    if (!authHeader || !authHeader.startsWith("Bearer ")) {
+      throw new Error("invalid Creditels , try again");
+    }
+    const token = authHeader.split(" ")[1];
+    const { userId } = req.params;
     if (!token) {
       return res.status(400).json({
         msg: "Bad request",

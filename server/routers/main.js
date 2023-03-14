@@ -19,7 +19,7 @@ router.route("/logout").get(logout);
 router.route("/PostTweet").post(PostTweet);
 router.route("/getAllTweets").post(GetTweets);
 router.route("/savedTweet").patch(SaveTweet);
-router.route("/getAllSavedTweets").post(LoadAllSavedTweets);
+router.route("/getAllSavedTweets/:userId").get(LoadAllSavedTweets);
 router.route("/likeTweet").patch(LikeTweet);
 router.route("/getAllLikedTweets/:userId").get(getAllLikedTweets);
 

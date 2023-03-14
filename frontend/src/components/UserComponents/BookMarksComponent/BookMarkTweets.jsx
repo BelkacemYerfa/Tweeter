@@ -4,19 +4,18 @@ import { useDataLayerValue } from "../../../config/dataLayer";
 import { TweeterPostData } from "../SharedComponents/TweeterPostData";
 import { useEffect } from "react";
 import axios from "axios";
+import { configHeaderAuth } from "../../../config/configHeaderForTheAuthApi";
 
 export const BookMarksTweets = () => {
   const [{ SavedTweets, user }, dispatch] = useDataLayerValue();
 
+  const data = JSON.parse(localStorage.getItem("user"));
+
   const getAllTweets = async () => {
     try {
-      const data = {
-        token: localStorage.getItem("token"),
-        userId: user?._id,
-      };
-      const AllSavedTweets = await axios.post(
-        "http://localhost:4000/api/v1/getAllSavedTweets",
-        data
+      const AllSavedTweets = await axios.get(
+        `http://localhost:4000/api/v1/getAllSavedTweets/${data?._id}`,
+        configHeaderAuth
       );
       console.log(AllSavedTweets);
       if (AllSavedTweets?.status === 201) {
@@ -35,30 +34,8 @@ export const BookMarksTweets = () => {
       console.log(error);
     }
   };
-  const getAllLikedTweetsOfUser = async () => {
-    try {
-      const LikedTweets = await axios.get(
-        `http://localhost:4000/api/v1/getAllLikedTweets/${user?._id}`,
-        {
-          headers: {
-            Authorization: `Bearer ${localStorage.getItem("token")}`,
-          },
-        }
-      );
-      console.log(LikedTweets);
-      if (LikedTweets?.status === 201) {
-        dispatch({
-          type: "SET_LIKED_TWEETS",
-          LikedTweets: LikedTweets?.data?.LikedTweets,
-        });
-      }
-    } catch (error) {
-      console.log(error);
-    }
-  };
   useEffect(() => {
     getAllTweets();
-    getAllLikedTweetsOfUser();
   }, []);
   return (
     <section className="UserHomePage">
