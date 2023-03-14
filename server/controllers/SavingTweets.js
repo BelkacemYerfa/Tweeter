@@ -20,7 +20,7 @@ const SaveTweet = async (req, res) => {
       userId: userId,
       tweetId: tweetId,
     });
-    if (CheckTweet) {
+    if (!CheckTweet) {
       await SavedTweetsSchema.create({
         tweetId: tweetId,
         userId: userId,
@@ -40,7 +40,7 @@ const SaveTweet = async (req, res) => {
     } else {
       await TweetSchema.findOneAndUpdate(
         { _id: tweetId },
-        { $inc: { Liked: -1 } }
+        { $inc: { Saved: -1 } }
       );
       await SavedTweetsSchema.findOneAndDelete({
         userId: userId,

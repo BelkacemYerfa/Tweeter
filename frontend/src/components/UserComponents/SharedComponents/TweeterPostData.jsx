@@ -16,6 +16,8 @@ export const TweeterPostData = ({
 }) => {
   const [{ user }] = useDataLayerValue();
   const [UploadedCommentImage, SetUploadedCommentImage] = useState(null);
+  const [LikedTweet, setLikedTweet] = useState(false);
+  const [LikedTweetId, setLikedTweetId] = useState(null);
   const SaveTweet = async () => {
     const data = {
       token: localStorage.getItem("token"),
@@ -39,6 +41,11 @@ export const TweeterPostData = ({
       data
     );
     console.log(UpdateTweet);
+    if (UpdateTweet.status === 201) {
+      setLikedTweet(!LikedTweet);
+      setLikedTweetId(UpdateTweet?.data[0]?._id);
+      console.log(LikedTweet, LikedTweetId);
+    }
   };
   const HandleUploadedImage = (e) => {
     e.preventDefault();
