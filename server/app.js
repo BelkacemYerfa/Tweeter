@@ -6,14 +6,13 @@ const connectDb = require("./db/DbConnection");
 const router = require("./routers/main");
 const mongoose = require("mongoose");
 
-mongoose.set("strictQuery", false);
+mongoose.set("strictQuery", true);
 
-app.use(cors());
 app.use(express.json());
-//the api will be available on http://localhost:5000/api/v1
+app.use(cors());
+//the api will be available on http://localhost:4000/api/v1
 //the genral route of all the apis
 app.use("/api/v1", router);
-
 const port = process.env.PORT || 4000;
 
 const start = async () => {

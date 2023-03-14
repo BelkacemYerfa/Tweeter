@@ -1,8 +1,8 @@
 export let initialState = {
-  user: {
-    username: "bylka",
-  },
+  user: {},
   PostedTweets: [],
+  SavedTweets: [],
+  LikedTweets: [],
 };
 
 export const reducer = (state, action) => {
@@ -18,6 +18,17 @@ export const reducer = (state, action) => {
         ...state,
         PostedTweets: action.PostedTweets,
       };
+    case "SET_SAVED_TWEETS":
+      return {
+        ...state,
+        SavedTweets: action.SavedTweets,
+      };
+    case "SET_LIKED_TWEETS": {
+      return {
+        ...state,
+        LikedTweets: action.LikedTweets,
+      };
+    }
     default:
       return state;
   }

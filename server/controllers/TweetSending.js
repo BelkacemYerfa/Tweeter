@@ -45,7 +45,7 @@ const GetTweets = async (req, res) => {
       const match = JWT.verify(token, process.env.JWT_SECRET);
       if (!match) {
         return res.status(400).json({
-          msg: "Unauthorized to post tweet",
+          msg: "Unauthorized to get tweets",
         });
       } else {
         const tweets = await TweetSchema.find({});

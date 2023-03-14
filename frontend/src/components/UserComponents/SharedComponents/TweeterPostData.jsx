@@ -1,9 +1,12 @@
 import { useState } from "react";
+import { Link } from "react-router-dom";
 import { useDataLayerValue } from "../../../config/dataLayer";
 import { TweetOption } from "../../../static/TweeteOptions";
+import axios from "axios";
 
 export const TweeterPostData = ({
   TweetDetails,
+  TweetId,
   TweetImage,
   UserInfo,
   CreateDate,
@@ -13,7 +16,30 @@ export const TweeterPostData = ({
 }) => {
   const [{ user }] = useDataLayerValue();
   const [UploadedCommentImage, SetUploadedCommentImage] = useState(null);
-
+  const SaveTweet = async () => {
+    const data = {
+      token: localStorage.getItem("token"),
+      tweetId: TweetId,
+      userId: user?._id,
+    };
+    const SaveTweet = await axios.patch(
+      "http://localhost:4000/api/v1/savedTweet",
+      data
+    );
+    console.log(SaveTweet);
+  };
+  const likedTweet = async () => {
+    const data = {
+      token: localStorage.getItem("token"),
+      tweetId: TweetId,
+      userId: user?._id,
+    };
+    const UpdateTweet = await axios.patch(
+      "http://localhost:4000/api/v1/likeTweet",
+      data
+    );
+    console.log(UpdateTweet);
+  };
   const HandleUploadedImage = (e) => {
     e.preventDefault();
     const file = e.target.files[0];
@@ -30,25 +56,35 @@ export const TweeterPostData = ({
               alt="user profilePic"
             />
           ) : (
-            <div className="UserFirstLetters UserFirstLettersSize">
+            <Link
+              to={`/profile/${UserInfo?.username}`}
+              className="UserFirstLetters UserFirstLettersSize"
+            >
               {UserInfo?.username.slice(0, 2)}
-            </div>
+            </Link>
           )}
           <div className="InfoHolder">
-            <h3 className="UserInfoName">{UserInfo?.username}</h3>
+            <Link
+              to={`/profile/${UserInfo?.username}`}
+              className="hover:underline"
+            >
+              {UserInfo?.username}
+            </Link>
             <p className="CreationDate">{CreateDate}</p>
           </div>
         </div>
         <div className="UserDetails">
           <p className="DetailsInfo">{TweetDetails}</p>
           <br />
-          <div className="ImagePostHodler">
+          <div className="ImagePostedHodler">
             {TweetImage && (
-              <img
-                src={TweetImage}
-                className="TweetImage"
-                alt="UserPostedImage"
-              />
+              <div className="ImagePostHodler">
+                <img
+                  src={TweetImage}
+                  className="TweetImage"
+                  alt="UserPostedImage"
+                />
+              </div>
             )}
             {
               //to render the image you need to check the Url image generatred
@@ -69,9 +105,16 @@ export const TweeterPostData = ({
             <div
               className={`OptionDetails ${option.text} duration-300 ease-in-out hover:font-semibold`}
               key={option.id}
+              onClick={
+                option.text === "Saved"
+                  ? SaveTweet
+                  : option.text === "Liked"
+                  ? likedTweet
+                  : null
+              }
             >
               <div className="OptionDetailsHolder">
-                <span class="material-symbols-rounded">{option.icon}</span>
+                <span className="material-symbols-rounded">{option.icon}</span>
                 <p className="OptionText">{option.text}</p>
               </div>
             </div>

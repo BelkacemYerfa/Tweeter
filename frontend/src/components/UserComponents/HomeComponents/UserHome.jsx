@@ -46,6 +46,7 @@ export const UserHome = () => {
     };
     const AllTweets = await axios.post(
       "http://localhost:4000/api/v1/getAllTweets",
+      //for the token need to be passed in the headers
       data
     );
     if (AllTweets?.status === 201) {
@@ -54,17 +55,27 @@ export const UserHome = () => {
         PostedTweets: AllTweets?.data?.tweets,
       });
     }
+    if (typeof user === "object") {
+      dispatch({
+        type: "SET_USER",
+        user: JSON.parse(localStorage.getItem("user")),
+      });
+    }
   };
-
   useEffect(() => {
-    window.addEventListener("click", (e) => {
-      if (!TweetDropDownRef.current.contains(e.target)) {
-        setTweetVisibilityDropDown(false);
-      } else {
-        setTweetVisibilityDropDown(true);
-      }
-    });
-  });
+    getAllTweets();
+  }, []);
+  useEffect(() => {
+    if (TweetDropDownRef.current !== null) {
+      window.addEventListener("click", (e) => {
+        if (!TweetDropDownRef.current.contains(e.target)) {
+          setTweetVisibilityDropDown(false);
+        } else {
+          setTweetVisibilityDropDown(true);
+        }
+      });
+    }
+  }, [TweetDropDownRef]);
   return (
     <section className="UserHomePage">
       <section className="UserHomePageDetails">
@@ -81,7 +92,7 @@ export const UserHome = () => {
                 />
               ) : (
                 <div className="UserFirstLetters">
-                  {user?.username.slice(0, 2)}
+                  {user?.username?.slice(0, 2)}
                 </div>
               )}
               <form className="TweetSection" onSubmit={HandlePostTweet}>
@@ -170,6 +181,7 @@ export const UserHome = () => {
             {PostedTweets?.map((tweet) => (
               <TweeterPostData
                 key={tweet?._id}
+                TweetId={tweet?._id}
                 TweetDetails={tweet?.TweetDetails}
                 TweetImage={tweet?.TweetImage}
                 TweetVisibility={tweet?.TweetVisibility}
@@ -228,7 +240,7 @@ export const UserHome = () => {
                     >
                       {isLoading ? (
                         <>
-                          <span class="material-symbols-rounded">
+                          <span className="material-symbols-rounded">
                             person_add
                           </span>
                           <p className="BtnAddColor">Follow</p>

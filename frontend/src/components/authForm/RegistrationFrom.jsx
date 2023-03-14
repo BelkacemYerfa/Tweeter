@@ -13,40 +13,28 @@ export const RegisterForm = () => {
   const { register, handleSubmit, formState } = useForm({
     resolver: yupResolver(RegistrationSchema),
   });
-  const getAllTweets = async () => {
-    const data = {
-      token: localStorage.getItem("token"),
-      //for the token store it in the cookies using react-cookies hook
-      //[cookies , setCookies] = useCookies(["Name_Of_Cookie"])
-    };
-    const AllTweets = await axios.post(
-      "http://localhost:4000/api/v1/getAllTweets",
-      data
-    );
-    if (AllTweets?.status === 201) {
-      dispatch({
-        type: "SET_POSTED_TWEETS",
-        PostedTweets: AllTweets?.data?.tweets,
-      });
-    }
-  };
   const onSubmitHandle = async (data) => {
-    const UserData = await axios.post(
-      "http://localhost:4000/api/v1/register",
-      data
-    );
-    if (UserData?.status === 201) {
-      dispatch({
-        type: "SET_USER",
-        user: UserData.data.userInfo,
-      });
+    try {
+      const UserData = await axios.post(
+        "http://localhost:4000/api/v1/register",
+        data
+      );
+      if (UserData?.status === 201) {
+        dispatch({
+          type: "SET_USER",
+          user: UserData?.data?.userInfo,
+        });
+      }
+      if (UserData?.data?.token) {
+        localStorage.setItem("token", UserData?.data?.token);
+        localStorage.setItem("user", JSON.stringify(UserData?.data?.userInfo));
+        console.log(user);
+        navigate(`/Home/${user?.username}`);
+      }
+    } catch (error) {
+      localStorage.removeItem("token");
+      console.log(error);
     }
-    if (UserData.data.token) {
-      localStorage.setItem("token", UserData.data.token);
-      console.log(user);
-      navigate(`/${user?.username}`);
-    }
-    getAllTweets();
   };
   return (
     <section className="FormHolder" onSubmit={handleSubmit(onSubmitHandle)}>

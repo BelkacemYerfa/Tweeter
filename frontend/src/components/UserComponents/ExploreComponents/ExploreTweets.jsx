@@ -1,11 +1,12 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { useDataLayerValue } from "../../../config/dataLayer";
 import { TweeterPostData } from "../SharedComponents/TweeterPostData";
 import { TweetFetchingOptions } from "../SharedComponents/TweetFecthingOptions";
 import { OptionLoadingTweetExplore } from "../../../static/OptionLoadingTweet";
+import axios from "axios";
 
 export const ExploreTweets = () => {
-  const [{ PostedTweets }] = useDataLayerValue();
+  const [{ PostedTweets }, dispatch] = useDataLayerValue();
   const [searchPost, setSearchPost] = useState("");
   const HandleSearchInfo = (e) => {
     if (e.target.value !== " ") {
@@ -16,6 +17,30 @@ export const ExploreTweets = () => {
     e.preventDefault();
     alert(searchPost);
   };
+  const getAllTweets = async () => {
+    const data = {
+      token: localStorage.getItem("token"),
+    };
+    const AllTweets = await axios.post(
+      "http://localhost:4000/api/v1/getAllTweets",
+      data
+    );
+    if (AllTweets?.status === 201) {
+      dispatch({
+        type: "SET_POSTED_TWEETS",
+        PostedTweets: AllTweets?.data?.tweets,
+      });
+    }
+    if (typeof user === "object") {
+      dispatch({
+        type: "SET_USER",
+        user: JSON.parse(localStorage.getItem("user")),
+      });
+    }
+  };
+  useEffect(() => {
+    getAllTweets();
+  }, []);
   return (
     <section className="UserHomePage">
       <section className="ExploreTweetsDetails UserHomePageDetails">
