@@ -25,24 +25,30 @@ const LikeTweet = async (req, res) => {
         tweetId: tweetId,
         userId: userId,
       });
+
+      const LikeTweet = await TweetSchema.findOneAndUpdate(
+        { _id: tweetId },
+        { $inc: { Liked: +1 } }
+      );
+      if (LikeTweet === null) {
+        return res.status(404).json({
+          msg: "sorry tweet not Found",
+        });
+      }
+      res.status(201).json({
+        msg: "Tweet liked successfully",
+        LikedTweet: LikeTweet,
+      });
     } else {
-      return res.status(201).json({
-        msg: "already liked this Tweet",
+      await TweetSchema.findOneAndUpdate(
+        { _id: tweetId },
+        { $inc: { Liked: -1 } }
+      );
+      await likedTweetsSchema.findOneAndDelete({
+        userId: userId,
+        tweetId: tweetId,
       });
     }
-    const LikeTweet = await TweetSchema.findOneAndUpdate(
-      { _id: tweetId },
-      { $inc: { Liked: +1 } }
-    );
-    if (LikeTweet === null) {
-      return res.status(404).json({
-        msg: "sorry tweet not Found",
-      });
-    }
-    res.status(201).json({
-      msg: "Tweet liked successfully",
-      LikedTweet: LikeTweet,
-    });
   } catch (error) {
     return res.status(500).json({
       msg: error.message,

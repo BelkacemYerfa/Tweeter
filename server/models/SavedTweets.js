@@ -11,4 +11,8 @@ const SavedTweetsSchema = new mongoose.Schema({
   },
 });
 
-module.exports = mongoose.model("SavedTweets", SavedTweetsSchema);
+module.exports = mongoose.model(
+  "SavedTweets",
+  SavedTweetsSchema,
+  "TweetsBiengSaved"
+);

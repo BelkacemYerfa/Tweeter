@@ -3,7 +3,7 @@ import { useState, useRef, useEffect } from "react";
 import { TweetVisibilityOption } from "../../../static/UserTweetVisibility";
 import { TweeterPostData } from "../SharedComponents/TweeterPostData";
 import axios from "axios";
-import CircleLoader from "react-spinners/CircleLoader";
+import ScaleLoader from "react-spinners/ScaleLoader";
 
 export const UserHome = () => {
   const [{ user, PostedTweets }, dispatch] = useDataLayerValue();
@@ -246,7 +246,12 @@ export const UserHome = () => {
                           <p className="BtnAddColor">Follow</p>
                         </>
                       ) : (
-                        <CircleLoader color="#fff" size={20} />
+                        <ScaleLoader
+                          color="#fff"
+                          height={20}
+                          width={3}
+                          margin={1}
+                        />
                       )}
                     </button>
                   </li>

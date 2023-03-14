@@ -42,20 +42,26 @@ export const BookMarksTweets = () => {
       <section className="ExploreTweetsDetails UserHomePageDetails">
         <div className="SearchPostHolder UserPostes">
           <section className="UserFiendsPost">
-            {SavedTweets?.map((tweet) => (
-              <TweeterPostData
-                key={tweet?._id}
-                TweetId={tweet?._id}
-                TweetDetails={tweet?.TweetDetails}
-                TweetImage={tweet?.TweetImage}
-                TweetVisibility={tweet?.TweetVisibility}
-                UserInfo={tweet?.UserInfo}
-                CreateDate={tweet?.CreationDate}
-                Comments={tweet?.Comments}
-                Liked={tweet?.Liked}
-                Saved={tweet?.Saved}
-              />
-            ))}
+            {SavedTweets.length > 0 ? (
+              SavedTweets?.map((tweet) => (
+                <TweeterPostData
+                  key={tweet?._id}
+                  TweetId={tweet?._id}
+                  TweetDetails={tweet?.TweetDetails}
+                  TweetImage={tweet?.TweetImage}
+                  TweetVisibility={tweet?.TweetVisibility}
+                  UserInfo={tweet?.UserInfo}
+                  CreateDate={tweet?.CreationDate}
+                  Comments={tweet?.Comments}
+                  Liked={tweet?.Liked}
+                  Saved={tweet?.Saved}
+                />
+              ))
+            ) : (
+              <div className="NoTweetsFound">
+                <h1>No Tweets Found</h1>
+              </div>
+            )}
           </section>
         </div>
         <div className="UserRecomendations">

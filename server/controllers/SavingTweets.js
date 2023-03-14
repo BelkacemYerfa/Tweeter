@@ -21,26 +21,32 @@ const SaveTweet = async (req, res) => {
       tweetId: tweetId,
     });
     if (CheckTweet) {
-      return res.status(201).json({
-        msg: "Tweet already saved",
+      await SavedTweetsSchema.create({
+        tweetId: tweetId,
+        userId: userId,
+      });
+      const TweetSaved = await TweetSchema.findByIdAndUpdate(
+        { _id: tweetId },
+        { $inc: { Saved: +1 } }
+      );
+      if (!TweetSaved) {
+        return res.status(404).json({
+          msg: "tweet not found",
+        });
+      }
+      res.status(201).json({
+        msg: "Tweet saved successfully",
+      });
+    } else {
+      await TweetSchema.findOneAndUpdate(
+        { _id: tweetId },
+        { $inc: { Liked: -1 } }
+      );
+      await SavedTweetsSchema.findOneAndDelete({
+        userId: userId,
+        tweetId: tweetId,
       });
     }
-    const Tweet = await SavedTweetsSchema.create({
-      tweetId: tweetId,
-      userId: userId,
-    });
-    const TweetSaved = await TweetSchema.findByIdAndUpdate(
-      { _id: tweetId },
-      { $inc: { Saved: +1 } }
-    );
-    if (!TweetSaved) {
-      return res.status(404).json({
-        msg: "tweet not found",
-      });
-    }
-    res.status(201).json({
-      msg: "Tweet saved successfully",
-    });
   } catch (error) {
     return res.status(500).json({
       msg: error.message,
