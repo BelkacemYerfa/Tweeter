@@ -25,24 +25,29 @@ const LikeTweet = async (req, res) => {
         tweetId: tweetId,
         userId: userId,
       });
+      const LikeTweet = await TweetSchema.findOneAndUpdate(
+        { _id: tweetId },
+        { $inc: { Liked: +1 } }
+      );
+      if (LikeTweet === null) {
+        return res.status(404).json({
+          msg: "sorry tweet not Found",
+        });
+      }
+      res.status(201).json({
+        msg: "Tweet liked successfully",
+        LikedTweet: LikeTweet,
+      });
     } else {
-      return res.status(201).json({
-        msg: "already liked this Tweet",
+      await TweetSchema.findOneAndUpdate(
+        { _id: tweetId },
+        { $inc: { Liked: -1 } }
+      );
+      await likedTweetsSchema.findOneAndDelete({
+        userId: userId,
+        tweetId: tweetId,
       });
     }
-    const LikeTweet = await TweetSchema.findOneAndUpdate(
-      { _id: tweetId },
-      { $inc: { Liked: +1 } }
-    );
-    if (LikeTweet === null) {
-      return res.status(404).json({
-        msg: "sorry tweet not Found",
-      });
-    }
-    res.status(201).json({
-      msg: "Tweet liked successfully",
-      LikedTweet: LikeTweet,
-    });
   } catch (error) {
     return res.status(500).json({
       msg: error.message,
@@ -58,7 +63,6 @@ const getAllLikedTweets = async (req, res) => {
     }
     const token = authHeader.split(" ")[1];
     const { userId } = req.params;
-    console.log(userId);
     if (!token) {
       return res.status(400).json({
         msg: "bad request",
@@ -71,9 +75,8 @@ const getAllLikedTweets = async (req, res) => {
       });
     }
     const LikedTweets = await likedTweetsSchema.find({
-      userId: req.params.userId,
+      userId: userId,
     });
-    console.log(LikedTweets);
     if (LikedTweets.length === 0) {
       return res.status(404).json({
         msg: "no liked tweets found",
@@ -89,7 +92,7 @@ const getAllLikedTweets = async (req, res) => {
     console.log(LikedUserTweets);
     res.status(201).json({
       msg: "liked tweets fetched seccefully",
-      LikedTweets: LikedUserTweets,
+      Tweets: LikedUserTweets,
     });
   } catch (error) {
     return res.status(500).json({

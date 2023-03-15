@@ -20,27 +20,33 @@ const SaveTweet = async (req, res) => {
       userId: userId,
       tweetId: tweetId,
     });
-    if (CheckTweet) {
-      return res.status(201).json({
-        msg: "Tweet already saved",
+    if (!CheckTweet) {
+      await SavedTweetsSchema.create({
+        tweetId: tweetId,
+        userId: userId,
+      });
+      const TweetSaved = await TweetSchema.findByIdAndUpdate(
+        { _id: tweetId },
+        { $inc: { Saved: +1 } }
+      );
+      if (!TweetSaved) {
+        return res.status(404).json({
+          msg: "tweet not found",
+        });
+      }
+      res.status(201).json({
+        msg: "Tweet saved successfully",
+      });
+    } else {
+      await TweetSchema.findOneAndUpdate(
+        { _id: tweetId },
+        { $inc: { Saved: -1 } }
+      );
+      await SavedTweetsSchema.findOneAndDelete({
+        userId: userId,
+        tweetId: tweetId,
       });
     }
-    const Tweet = await SavedTweetsSchema.create({
-      tweetId: tweetId,
-      userId: userId,
-    });
-    const TweetSaved = await TweetSchema.findByIdAndUpdate(
-      { _id: tweetId },
-      { $inc: { Saved: +1 } }
-    );
-    if (!TweetSaved) {
-      return res.status(404).json({
-        msg: "tweet not found",
-      });
-    }
-    res.status(201).json({
-      msg: "Tweet saved successfully",
-    });
   } catch (error) {
     return res.status(500).json({
       msg: error.message,
@@ -50,7 +56,12 @@ const SaveTweet = async (req, res) => {
 
 const LoadAllSavedTweets = async (req, res) => {
   try {
-    const { token, userId } = req.body;
+    const authHeader = req.headers.authorization;
+    if (!authHeader || !authHeader.startsWith("Bearer ")) {
+      throw new Error("invalid Creditels , try again");
+    }
+    const token = authHeader.split(" ")[1];
+    const { userId } = req.params;
     if (!token) {
       return res.status(400).json({
         msg: "Bad request",

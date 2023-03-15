@@ -233,7 +233,8 @@
     @apply flex w-full justify-end !important;
   }
   .TweetInfoSettingsHolder {
-    @apply flex items-center justify-between w-[30%] !important;
+    @apply flex items-center justify-between 
+    w-[60%] sm:w-[50%] md:w-[40%] !important;
   }
   .DetailsOption {
     @apply text-[12px] font-medium text-userHolder cursor-pointer !important;
