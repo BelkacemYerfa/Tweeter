@@ -89,7 +89,6 @@ const getAllLikedTweets = async (req, res) => {
       const Tweet = await TweetSchema.findOne({ _id: LikedTweets[i]?.tweetId });
       LikedUserTweets.push(Tweet);
     }
-    console.log(LikedUserTweets);
     res.status(201).json({
       msg: "liked tweets fetched seccefully",
       Tweets: LikedUserTweets,

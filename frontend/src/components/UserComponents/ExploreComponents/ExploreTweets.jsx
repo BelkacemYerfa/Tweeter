@@ -1,12 +1,12 @@
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import { useDataLayerValue } from "../../../config/dataLayer";
 import { TweeterPostData } from "../SharedComponents/TweeterPostData";
 import { TweetFetchingOptions } from "../SharedComponents/TweetFecthingOptions";
 import { OptionLoadingTweetExplore } from "../../../static/OptionLoadingTweet";
-import axios from "axios";
+import { useFetch } from "../../../Hooks/useFetch";
 
 export const ExploreTweets = () => {
-  const [{ PostedTweets }, dispatch] = useDataLayerValue();
+  const [{ TopTweets }, dispatch] = useDataLayerValue();
   const [searchPost, setSearchPost] = useState("");
   const HandleSearchInfo = (e) => {
     if (e.target.value !== " ") {
@@ -17,30 +17,17 @@ export const ExploreTweets = () => {
     e.preventDefault();
     alert(searchPost);
   };
-  const getAllTweets = async () => {
-    const data = {
-      token: localStorage.getItem("token"),
-    };
-    const AllTweets = await axios.post(
-      "http://localhost:4000/api/v1/getAllTweets",
-      data
-    );
-    if (AllTweets?.status === 201) {
-      dispatch({
-        type: "SET_POSTED_TWEETS",
-        PostedTweets: AllTweets?.data?.tweets,
-      });
-    }
-    if (typeof user === "object") {
-      dispatch({
-        type: "SET_USER",
-        user: JSON.parse(localStorage.getItem("user")),
-      });
-    }
-  };
-  useEffect(() => {
-    getAllTweets();
-  }, []);
+  const [TopTweetsFetched] = useFetch(
+    "get",
+    "http://localhost:4000/api/v1/getTopTweets"
+  );
+  if (TopTweetsFetched?.status === 201) {
+    dispatch({
+      type: "SET_TOP_TWEETS",
+      TopTweets: TopTweetsFetched?.data?.Tweets,
+    });
+  }
+
   return (
     <section className="UserHomePage">
       <section className="ExploreTweetsDetails UserHomePageDetails">
@@ -63,7 +50,7 @@ export const ExploreTweets = () => {
           </form>
           <br />
           <section className="UserFiendsPost">
-            {PostedTweets?.map((tweet) => (
+            {TopTweets?.map((tweet) => (
               <TweeterPostData
                 key={tweet?._id}
                 TweetDetails={tweet?.TweetDetails}

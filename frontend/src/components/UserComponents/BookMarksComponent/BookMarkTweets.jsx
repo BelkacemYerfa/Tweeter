@@ -5,16 +5,17 @@ import { TweeterPostData } from "../SharedComponents/TweeterPostData";
 import { useEffect } from "react";
 import axios from "axios";
 import { configHeaderAuth } from "../../../config/configHeaderForTheAuthApi";
+import { Link } from "react-router-dom";
 
 export const BookMarksTweets = () => {
   const [{ SavedTweets, user }, dispatch] = useDataLayerValue();
 
-  const data = JSON.parse(localStorage.getItem("user"));
+  const User = JSON.parse(localStorage.getItem("user"));
 
   const getAllTweets = async () => {
     try {
       const AllSavedTweets = await axios.get(
-        `http://localhost:4000/api/v1/getAllSavedTweets/${data?._id}`,
+        `http://localhost:4000/api/v1/getAllSavedTweets/${User?._id}`,
         configHeaderAuth
       );
       console.log(AllSavedTweets);
@@ -59,7 +60,9 @@ export const BookMarksTweets = () => {
               ))
             ) : (
               <div className="NoTweetsFound">
-                <h1>No Tweets Found</h1>
+                <Link to={"/Explore"} className="NoTweetsFoundTitle">
+                  No tweets saved, save one to start see them
+                </Link>
               </div>
             )}
           </section>

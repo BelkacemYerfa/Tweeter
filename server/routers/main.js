@@ -7,11 +7,11 @@ const {
   SaveTweet,
   LoadAllSavedTweets,
 } = require("../controllers/SavingTweets");
-
 const {
   LikeTweet,
   getAllLikedTweets,
-} = require("../controllers/TweetsFunctionality");
+} = require("../controllers/LikedFunctionaly");
+const { getTopTweets } = require("../controllers/GetTweetsChoice");
 
 router.route("/register").post(register);
 router.route("/login").post(login);
@@ -22,5 +22,6 @@ router.route("/savedTweet").patch(SaveTweet);
 router.route("/getAllSavedTweets/:userId").get(LoadAllSavedTweets);
 router.route("/likeTweet").patch(LikeTweet);
 router.route("/getAllLikedTweets/:userId").get(getAllLikedTweets);
+router.route("/getTopTweets").get(getTopTweets);
 
 module.exports = router;

@@ -3,6 +3,7 @@ export let initialState = {
   PostedTweets: [],
   SavedTweets: [],
   LikedTweets: [],
+  TopTweets: [],
 };
 
 export const reducer = (state, action) => {
@@ -27,6 +28,12 @@ export const reducer = (state, action) => {
       return {
         ...state,
         LikedTweets: action.LikedTweets,
+      };
+    }
+    case "SET_TOP_TWEETS": {
+      return {
+        ...state,
+        TopTweets: action.TopTweets,
       };
     }
     default:

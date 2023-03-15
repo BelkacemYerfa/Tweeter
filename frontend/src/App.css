@@ -335,4 +335,12 @@
     @apply absolute left-0 h-0 duration-300 ease-in-out group-hover:h-[30px] w-[3px]
     group-focus-within:h-[30px] bg-submitBtnBg border border-solid border-submitBtnBg rounded-tr-full rounded-br-full;
   }
+
+  /*No Tweet found component*/
+  .NoTweetsFound {
+    @apply bg-white w-full h-16 p-1 flex items-center justify-center rounded-xl;
+  }
+  .NoTweetsFoundTitle {
+    @apply text-lg font-semibold opacity-80 hover:underline hover:text-submitBtnBg !important;
+  }
 }
