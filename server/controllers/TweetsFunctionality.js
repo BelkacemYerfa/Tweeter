@@ -25,7 +25,6 @@ const LikeTweet = async (req, res) => {
         tweetId: tweetId,
         userId: userId,
       });
-
       const LikeTweet = await TweetSchema.findOneAndUpdate(
         { _id: tweetId },
         { $inc: { Liked: +1 } }

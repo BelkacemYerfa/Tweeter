@@ -5,6 +5,7 @@ import {
   configHeaderAuth,
   userData,
 } from "../../../config/configHeaderForTheAuthApi";
+import { useFetch } from "../../../Hooks/useFetch";
 
 export const TweetFetchingOptions = ({ OptionArray }) => {
   const [{ SavedTweets }, dispatch] = useDataLayerValue();
@@ -26,6 +27,11 @@ export const TweetFetchingOptions = ({ OptionArray }) => {
       console.log(error);
     }
   };
+  const [response] = useFetch(
+    "get",
+    `http://localhost:4000/api/v1/getAllSavedTweets/${userData?._id}`
+  );
+  console.log(response);
   const getAllSavedTweetsOfUser = async () => {
     try {
       const AllSavedTweets = await axios.get(
