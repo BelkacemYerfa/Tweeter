@@ -17,6 +17,10 @@ const UserSchema = new mongoose.Schema({
     required: [true, "Please provide a password"],
     minlength: [6, "Minimum password length is 6 characters"],
   },
+  createdAccount: {
+    type: Date,
+    default: Date.now(),
+  },
 });
 
 module.exports = mongoose.model("User", UserSchema);
